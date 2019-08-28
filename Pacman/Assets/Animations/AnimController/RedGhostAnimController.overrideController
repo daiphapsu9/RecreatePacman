@@ -7,5 +7,13 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RedGhostAnimController
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 97530994f0d6f97428da805cc0413cad, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 808a8141242672048895b507d4aa0839, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca7a05bdc517c594ab511c41d7b0cf81, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bf323537e8d219d46809fd13bf035317, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0afc51a9cc71ed340baa10e5c67bdfd9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 551ade62f8174884995939cdef0b1da5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 968d38b9a550b654495fea0c7183d1d9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0be11a3bb2bee494ab14fb48a4585470, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 156079b7e5da92d47a5014ce07e9857f, type: 2}

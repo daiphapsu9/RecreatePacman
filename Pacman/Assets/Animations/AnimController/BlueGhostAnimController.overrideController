@@ -7,5 +7,13 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BlueGhostAnimController
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: 97530994f0d6f97428da805cc0413cad, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 808a8141242672048895b507d4aa0839, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4366174e48ea43041ae7cf32cff4780e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bf323537e8d219d46809fd13bf035317, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 267eaeceb4ba8ec47bde864dde559311, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 551ade62f8174884995939cdef0b1da5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 4ec844f6cace5eb4d9d0c7d5d3ccb0a2, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0be11a3bb2bee494ab14fb48a4585470, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 17aa611c378e9fe40a7eb1ded4f2c0b8, type: 2}
