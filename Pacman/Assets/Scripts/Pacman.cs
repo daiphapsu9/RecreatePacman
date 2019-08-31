@@ -7,6 +7,8 @@ public class Pacman : MonoBehaviour
     public float speed;
     public Animator animator;
     Vector2 dest = Vector2.zero;
+    [SerializeField]
+    private AudioSource chompSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +34,19 @@ public class Pacman : MonoBehaviour
         transform.position = transform.position + movement * speed * Time.deltaTime;
     }
 
-    void FixedUpdate()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Debug.Log("OnCollisionEnter2D OnCollisionEnter2D");
+        if (collision.gameObject.tag == "SmallBall")
+        {
+            if (!chompSound.isPlaying)
+            {
+                chompSound.Play();
+            }
+            
+            Destroy(collision.gameObject);
+        }
+            
     }
+    
 }
