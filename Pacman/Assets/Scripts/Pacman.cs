@@ -9,6 +9,8 @@ public class Pacman : MonoBehaviour
     Vector2 dest = Vector2.zero;
     [SerializeField]
     private AudioSource chompSound;
+    [SerializeField]
+    private ParticleSystem collisionParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +45,10 @@ public class Pacman : MonoBehaviour
             {
                 chompSound.Play();
             }
-            
+            collisionParticle.transform.position = gameObject.transform.position;
+            collisionParticle.Play();
+
+
             Destroy(collision.gameObject);
         }
             

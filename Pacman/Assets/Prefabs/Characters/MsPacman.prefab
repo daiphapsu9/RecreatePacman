@@ -119,6 +119,8 @@ MonoBehaviour:
   speed: 2
   animator: {fileID: 0}
   chompSound: {fileID: 0}
+  collisionParticle: {fileID: 4068558635601621826, guid: 4f164d8e7c2191743b24c7acfd3d3a9a,
+    type: 3}
 --- !u!50 &1008054300026293166
 Rigidbody2D:
   serializedVersion: 4

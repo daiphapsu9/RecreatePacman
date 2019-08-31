@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SmallBall
   - BigBall
+  - Fruit
   layers:
   - Default
   - TransparentFX
