@@ -9,6 +9,9 @@ public class Waypoint : MonoBehaviour
     private DateTime touchedTime;
     public float duration = 3f;
 
+    public Waypoint[] neighbors;
+    public Vector2[] validDirections;
+
     // Start is called before the first frame update
     void Start()
     {
