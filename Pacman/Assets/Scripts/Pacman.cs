@@ -45,15 +45,17 @@ public class Pacman : MonoBehaviour
             {
                 chompSound.Play();
             }
-            if (collisionParticle.gameObject.activeSelf == false) 
-            {
-                collisionParticle.gameObject.SetActive(true);
-            }
-            collisionParticle.transform.position = gameObject.transform.position;
-            collisionParticle.Play();
+            //if (collisionParticle.gameObject.activeSelf == false) 
+            //{
+            //    collisionParticle.gameObject.SetActive(true);
+            //}
+            //collisionParticle.transform.position = gameObject.transform.position;
+            //collisionParticle.Play();
             Destroy(collision.gameObject);
         }
             
     }
+
+
     
 }

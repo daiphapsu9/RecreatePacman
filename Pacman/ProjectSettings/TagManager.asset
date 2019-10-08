@@ -7,6 +7,10 @@ TagManager:
   - SmallBall
   - BigBall
   - Fruit
+  - Waypoint
+  - Ghost
+  - Impassable
+  - Freeze
   layers:
   - Default
   - TransparentFX
@@ -16,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Enemy
   - 
   - 
   - 
