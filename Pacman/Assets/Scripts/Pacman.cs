@@ -15,9 +15,11 @@ public class Pacman : MonoBehaviour
     [SerializeField]
     private ParticleSystem collisionParticle;
     // Start is called before the first frame update
+    MainManager manager;
     void Start()
     {
         animator = GetComponent<Animator>();
+        manager = GameObject.Find("Manager").GetComponent<MainManager>();
     }
 
     // Update is called once per frame
@@ -47,30 +49,40 @@ public class Pacman : MonoBehaviour
             {
                 chompSound.Play();
             }
-            if (collisionParticle.gameObject.activeSelf == false)
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "BigBall")
+        {
+            GameObject[] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+            foreach (GameObject ghost in ghosts)
             {
-                collisionParticle.gameObject.SetActive(true);
+                ghost.GetComponent<Ghost>().BecomeScared();
             }
-            //collisionParticle.transform.position = gameObject.transform.position;
-            //collisionParticle.Play();
             Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.tag == "Ghost")
         {
-            if (!deathSound.isPlaying)
+            Ghost ghost = collision.gameObject.GetComponent<Ghost>();
+            if (ghost.mode == Ghost.GhostMode.Frightened)
             {
-                deathSound.Play();
+                manager.ConsumeGhost();
+                ghost.BecomeScatter();
+            } else if(ghost.mode != Ghost.GhostMode.Scatter)
+            {
+                if (!deathSound.isPlaying)
+                {
+                    deathSound.Play();
+                }
+                if (collisionParticle.gameObject.activeSelf == false)
+                {
+                    collisionParticle.gameObject.SetActive(true);
+                }
+                collisionParticle.transform.position = gameObject.transform.position;
+                collisionParticle.Play();
+                Destroy(this.gameObject);
             }
-            //if (collisionParticle.gameObject.activeSelf == false) 
-            //{
-            //    collisionParticle.gameObject.SetActive(true);
-            //}
-            collisionParticle.transform.position = gameObject.transform.position;
-            collisionParticle.Play();
-            Destroy(this.gameObject);
-            //MessageBox.Show("Thua nha co ho", "Thua", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-            Debug.Log("OnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2D");
         }
 
     }

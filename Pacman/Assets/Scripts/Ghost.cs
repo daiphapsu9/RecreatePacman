@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class Ghost : MonoBehaviour
         Red, // chase
     }
 
-    enum GhostMode
+    public enum GhostMode
     {
         Normal,
         Scatter,
@@ -26,7 +27,7 @@ public class Ghost : MonoBehaviour
 
     [SerializeField]
     private GhostType type;
-
+    public GhostMode mode;
 
     public GameObject[] waypoints;
     private Waypoint currentWaypoint, previousWaypoint, targetWaypoint;
@@ -35,27 +36,32 @@ public class Ghost : MonoBehaviour
     int cur = 0;
     public Animator animator;
 
-    float scatterDuration = 7;
+    float scaredDuration = 7;
+    DateTime scaredStartingTime;
 
+    float scatterDuration = 7;
+    DateTime scatterStartingTime;
 
     private Vector2 headingDir;
     private Vector2 scan;
+    private Vector2 lookingDir;
+    MainManager manager;
     void Start()
     {
         pacman = GameObject.FindGameObjectWithTag("Pacman");
         //Waypoint startingWaypoint = waypoints[0].GetComponent<Waypoint>();
-
+        mode = GhostMode.Normal;
         Vector2 pacmanPos = pacman.transform.position;
         targetWaypoint = startingPoint;
         direction = Vector2.up;
         previousWaypoint = startingPoint;
+        manager = GameObject.Find("Manager").GetComponent<MainManager>();
         //if (startingWaypoint != null)
         //{
         //    MoveToWaypoint(startingWaypoint);
         //    currentWaypoint = startingWaypoint;
         //    previousWaypoint = currentWaypoint;
         //}
-        animator.SetBool("Frightened", true);
     }
 
     // Update is called once per frame
@@ -77,23 +83,14 @@ public class Ghost : MonoBehaviour
                 ChaseMove();
                 break;
         }
+
+        CheckMode(); // check and reset ghost mode
+        ChangeAnim();
     }
 
 
     private void FixedUpdate()
     {
-    }
-
-    public void RandomMove()
-    {
-        Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
-        if (nextWaypoint.isTouched != true)
-        {
-            Debug.Log("move to: " + waypoints[cur].transform.position);
-            MoveToWaypoint(nextWaypoint);
-        }
-        // Waypoint reached, select next one
-        else cur = (cur + 1) % waypoints.Length;
     }
 
     public void ChaseMove()
@@ -129,7 +126,8 @@ public class Ghost : MonoBehaviour
     {
         //Debug.Log("MoveToWaypoint");
         headingDir = waypoint.transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, headingDir, speed * Time.deltaTime);
+        lookingDir = waypoint.transform.position - transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, headingDir, GetSpeed() * Time.deltaTime);
     }
 
     //void ChangePosition (Vector2 d)
@@ -168,11 +166,6 @@ public class Ghost : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("OnCollisionEnter2D OnCollisionEnter2D");
-        if (collision.gameObject.tag == "Waypoint")
-        {
-            collision.gameObject.GetComponent<Waypoint>().Touch();
-        }
 
     }
     
@@ -227,7 +220,27 @@ public class Ghost : MonoBehaviour
 
         if (foundWaypoints.Count > 1)
         {
-            if (type == GhostType.Red) // Chase Pacman
+
+            if (type == GhostType.Blue || mode == GhostMode.Frightened || mode == GhostMode.Scatter) // run away
+            {
+                //Debug.Log("4444 ChooseNextWaypoint  ");
+                float farthest = 0;
+                for (int i = 0; i < foundWaypoints.Count; i++)
+                {
+                    if (foundWaypointDirection[i] != Vector2.zero)
+                    {
+                        float distance = GetDistance(((Waypoint)foundWaypoints[i]).transform.position, targetPosition);
+                        //Debug.Log("555 ChooseNextWaypoint distance === " + distance);
+                        if (distance > farthest)
+                        {
+                            //Debug.Log("666 ChooseNextWaypoint  ");
+                            farthest = distance;
+                            moveToWaypoint = (Waypoint)foundWaypoints[i];
+                            direction = foundWaypointDirection[i];
+                        }
+                    }
+                }
+            } else if (type == GhostType.Red) // Chase Pacman
             {
                 //Debug.Log("4444 ChooseNextWaypoint  ");
                 float leastDis = 10000f;
@@ -246,38 +259,15 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            }
-
-            if (type == GhostType.Green || type == GhostType.Pink) // Random turn
+            } else if (type == GhostType.Green || type == GhostType.Pink) // Random turn
             { 
-                Debug.Log("555 available  ==" + foundWaypoints.Count);
-                var random = Random.Range(0, foundWaypoints.Count);
-                Debug.Log("666 ChooseNextWaypoint  random ==" + random);
+                //Debug.Log("555 available  ==" + foundWaypoints.Count);
+                var random = UnityEngine.Random.Range(0, foundWaypoints.Count);
+                //Debug.Log("666 ChooseNextWaypoint  random ==" + random);
                 if (foundWaypointDirection[random] != Vector2.zero)
                 {
                     moveToWaypoint = (Waypoint)foundWaypoints[random];
                     direction = foundWaypointDirection[random];
-                }
-            }
-
-            if (type == GhostType.Blue) // run away
-            {
-                //Debug.Log("4444 ChooseNextWaypoint  ");
-                float farthest = 0;
-                for (int i = 0; i < foundWaypoints.Count; i++)
-                {
-                    if (foundWaypointDirection[i] != Vector2.zero)
-                    {
-                        float distance = GetDistance(((Waypoint)foundWaypoints[i]).transform.position, targetPosition);
-                        //Debug.Log("555 ChooseNextWaypoint distance === " + distance);
-                        if (distance > farthest)
-                        {
-                            //Debug.Log("666 ChooseNextWaypoint  ");
-                            farthest = distance;
-                            moveToWaypoint = (Waypoint)foundWaypoints[i];
-                            direction = foundWaypointDirection[i];
-                        }
-                    }
                 }
             }
 
@@ -311,5 +301,77 @@ public class Ghost : MonoBehaviour
             //}
         }
         return moveToWaypoint;
+    }
+
+    public void BecomeScared()
+    {
+        mode = GhostMode.Frightened;
+        scaredStartingTime = DateTime.Now;
+    }
+
+    public void BecomeScatter()
+    {
+        mode = GhostMode.Scatter;
+        scatterStartingTime = DateTime.Now;
+    }
+
+    private void CheckMode()
+    {
+        if (mode == GhostMode.Frightened)
+        {
+            TimeSpan time = DateTime.Now - scaredStartingTime;
+            if (time.Seconds >= scaredDuration)
+            {
+                manager.ResetMultiplier();
+                mode = GhostMode.Normal;
+            }
+        }
+
+        if (mode == GhostMode.Scatter)
+        {
+            TimeSpan time = DateTime.Now - scatterStartingTime;
+            if (time.Seconds >= scatterDuration)
+            {
+                mode = GhostMode.Normal;
+            }
+        }
+    }
+
+    private void ChangeAnim()
+    {
+        if (mode == GhostMode.Frightened && animator.GetBool("Frightened") != true)
+        {
+            animator.SetBool("Frightened", true);
+        }
+
+        if (mode == GhostMode.Normal && animator.GetBool("Frightened") != false)
+        {
+            animator.SetBool("Frightened", false);
+        }
+
+        if (mode == GhostMode.Scatter && animator.GetBool("Scatter") != true)
+        {
+            animator.SetBool("Scatter", true);
+            animator.SetBool("Frightened", false);
+        }
+
+        if (mode == GhostMode.Normal && animator.GetBool("Scatter") != false)
+        {
+            animator.SetBool("Scatter", false);
+            animator.SetBool("Frightened", false);
+        }
+
+        animator.SetFloat("DirX", lookingDir.x);
+        animator.SetFloat("DirY", lookingDir.y);
+        Debug.Log("lookingDir == " + lookingDir);
+    }
+
+    float GetSpeed()
+    {
+        if (mode == GhostMode.Frightened)
+        {
+            return speed / 2;
+        }
+        return speed;
     }
 }
