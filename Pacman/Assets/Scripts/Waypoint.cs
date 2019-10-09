@@ -15,6 +15,14 @@ public class Waypoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        validDirections = new Vector2[neighbors.Length];
+        for (int i = 0; i < neighbors.Length; i++)
+        {
+            Waypoint neighbor = neighbors[i];
+            Vector2 temp = neighbor.transform.localPosition - transform.localPosition;
+
+            validDirections[i] = temp.normalized;
+        }
     }
 
     // Update is called once per frame

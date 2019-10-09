@@ -11,6 +11,7 @@ TagManager:
   - Ghost
   - Impassable
   - Freeze
+  - Pacman
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Windows;
 using UnityEngine;
 
 public class Pacman : MonoBehaviour
@@ -9,6 +10,8 @@ public class Pacman : MonoBehaviour
     Vector2 dest = Vector2.zero;
     [SerializeField]
     private AudioSource chompSound;
+    [SerializeField]
+    private AudioSource deathSound;
     [SerializeField]
     private ParticleSystem collisionParticle;
     // Start is called before the first frame update
@@ -38,22 +41,38 @@ public class Pacman : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("OnCollisionEnter2D OnCollisionEnter2D");
         if (collision.gameObject.tag == "SmallBall")
         {
             if (!chompSound.isPlaying)
             {
                 chompSound.Play();
             }
-            //if (collisionParticle.gameObject.activeSelf == false) 
-            //{
-            //    collisionParticle.gameObject.SetActive(true);
-            //}
+            if (collisionParticle.gameObject.activeSelf == false)
+            {
+                collisionParticle.gameObject.SetActive(true);
+            }
             //collisionParticle.transform.position = gameObject.transform.position;
             //collisionParticle.Play();
             Destroy(collision.gameObject);
         }
-            
+
+        if (collision.gameObject.tag == "Ghost")
+        {
+            if (!deathSound.isPlaying)
+            {
+                deathSound.Play();
+            }
+            //if (collisionParticle.gameObject.activeSelf == false) 
+            //{
+            //    collisionParticle.gameObject.SetActive(true);
+            //}
+            collisionParticle.transform.position = gameObject.transform.position;
+            collisionParticle.Play();
+            Destroy(this.gameObject);
+            //MessageBox.Show("Thua nha co ho", "Thua", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            Debug.Log("OnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2DOnTriggerEnter2D");
+        }
+
     }
 
 
