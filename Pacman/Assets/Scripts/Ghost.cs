@@ -193,8 +193,17 @@ public class Ghost : MonoBehaviour
     Waypoint ChooseNextWaypoint()
     {
         //Debug.Log("ChooseNextWaypoint ChooseNextWaypoint");
+
         Vector2 pacmanPos = pacman.transform.position;
         Vector2 targetPosition = pacmanPos;
+        if (mode == GhostMode.Scatter)
+        {
+            targetPosition = startingPoint.transform.position;
+        }
+        if (mode == GhostMode.Normal)
+        {
+            targetPosition = pacmanPos; 
+        }
 
         Waypoint moveToWaypoint = null;
         ArrayList foundWaypoints = new ArrayList();
@@ -221,7 +230,7 @@ public class Ghost : MonoBehaviour
         if (foundWaypoints.Count > 1)
         {
 
-            if (type == GhostType.Blue || mode == GhostMode.Frightened || mode == GhostMode.Scatter) // run away
+            if (type == GhostType.Blue || mode == GhostMode.Frightened) // run away
             {
                 //Debug.Log("4444 ChooseNextWaypoint  ");
                 float farthest = 0;
@@ -240,7 +249,7 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            } else if (type == GhostType.Red) // Chase Pacman
+            } else if (type == GhostType.Red || mode == GhostMode.Scatter) // Chase Pacman or go back to base
             {
                 //Debug.Log("4444 ChooseNextWaypoint  ");
                 float leastDis = 10000f;
@@ -352,18 +361,15 @@ public class Ghost : MonoBehaviour
         if (mode == GhostMode.Scatter && animator.GetBool("Scatter") != true)
         {
             animator.SetBool("Scatter", true);
-            animator.SetBool("Frightened", false);
         }
 
         if (mode == GhostMode.Normal && animator.GetBool("Scatter") != false)
         {
             animator.SetBool("Scatter", false);
-            animator.SetBool("Frightened", false);
         }
 
         animator.SetFloat("DirX", lookingDir.x);
         animator.SetFloat("DirY", lookingDir.y);
-        Debug.Log("lookingDir == " + lookingDir);
     }
 
     float GetSpeed()

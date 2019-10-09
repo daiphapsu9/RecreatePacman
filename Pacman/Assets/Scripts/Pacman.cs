@@ -49,6 +49,7 @@ public class Pacman : MonoBehaviour
             {
                 chompSound.Play();
             }
+            manager.ConsumeSmallBall();
             Destroy(collision.gameObject);
         }
 
@@ -59,6 +60,18 @@ public class Pacman : MonoBehaviour
             {
                 ghost.GetComponent<Ghost>().BecomeScared();
             }
+            manager.ConsumeBigBall();
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Fruit")
+        {
+            if (!chompSound.isPlaying)
+            {
+                chompSound.Play();
+            }
+            Fruit fruit = (Fruit)collision.gameObject.GetComponent<Fruit>();
+            manager.ConsumeFruit(fruit);
             Destroy(collision.gameObject);
         }
 
@@ -81,7 +94,8 @@ public class Pacman : MonoBehaviour
                 }
                 collisionParticle.transform.position = gameObject.transform.position;
                 collisionParticle.Play();
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
+                gameObject.SetActive(false);
             }
         }
 
