@@ -56,34 +56,12 @@ public class Ghost : MonoBehaviour
         direction = Vector2.up;
         previousWaypoint = startingPoint;
         manager = GameObject.Find("Manager").GetComponent<MainManager>();
-        //if (startingWaypoint != null)
-        //{
-        //    MoveToWaypoint(startingWaypoint);
-        //    currentWaypoint = startingWaypoint;
-        //    previousWaypoint = currentWaypoint;
-        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch (type)
-        {
-            case GhostType.Pink:
-                ChaseMove();
-                break;
-            case GhostType.Blue:
-                ChaseMove();
-                break;
-            case GhostType.Red:
-                ChaseMove();
-                break;
-            case GhostType.Green:
-                //RandomMove();
-                ChaseMove();
-                break;
-        }
-
+        Move();
         CheckMode(); // check and reset ghost mode
         ChangeAnim();
     }
@@ -93,15 +71,15 @@ public class Ghost : MonoBehaviour
     {
     }
 
-    public void ChaseMove()
+    public void Move()
     {
 
         if (targetWaypoint != currentWaypoint && targetWaypoint != null)
         {
-            //Debug.Log("ChaseMove 11111");
+            //Debug.Log("Move 11111");
             if (nextDirection == direction *-1)
             {
-                //Debug.Log("ChaseMove 2222");
+                //Debug.Log("Move 2222");
                 direction *= -1;
                 Waypoint temp = targetWaypoint;
                 targetWaypoint = previousWaypoint;
@@ -128,45 +106,6 @@ public class Ghost : MonoBehaviour
         headingDir = waypoint.transform.position;
         lookingDir = waypoint.transform.position - transform.position;
         transform.position = Vector3.MoveTowards(transform.position, headingDir, GetSpeed() * Time.deltaTime);
-    }
-
-    //void ChangePosition (Vector2 d)
-    //{
-    //    if (d != direction)
-    //    {
-    //        nextDirection = d;
-    //    }
-
-    //    if (currentWaypoint != null)
-    //    {
-    //        Waypoint moveToWaypoint = CanMove(d);
-    //        if (moveToWaypoint != null)
-    //        {
-    //            direction = d;
-    //            targetWaypoint = moveToWaypoint;
-    //            previousWaypoint = currentWaypoint;
-    //            currentWaypoint = null;
-    //        }
-    //    }
-    //}
-
-    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
-    {
-        GameObject myLine = new GameObject();
-        myLine.transform.position = start;
-        myLine.AddComponent<LineRenderer>();
-        LineRenderer lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Sprites/Default"));
-        lr.SetColors(color, color);
-        lr.SetWidth(0.1f, 0.1f);
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
-        GameObject.Destroy(myLine, duration);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
     }
     
     float LengthFromWaypoint(Vector2 targetPosition)
@@ -290,48 +229,6 @@ public class Ghost : MonoBehaviour
                     direction = foundWaypointDirection[random];
                 }
             }
-            //else //type == GhostType.Pinktype // move around clockwise
-            //{
-            //    if (waypoints.Length > 1)
-            //    {
-            //        Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
-            //        moveToWaypoint = nextWaypoint;
-            //        // Waypoint reached, select next one
-            //        cur = (cur + 1) % waypoints.Length;
-            //    }
-            //}
-
-            //if (type == GhostType.Pink) // turn clock-wise TODO: not working
-            //{
-            //    for (int i = 0; i < foundWaypoints.Count; i++)
-            //    {
-            //        if (foundWaypointDirection[i].x > 0)
-            //        {
-            //            //Debug.Log("555 ChooseNextWaypoint distance === " + distance);
-            //            moveToWaypoint = (Waypoint)foundWaypoints[i];
-            //            direction = foundWaypointDirection[i];
-            //            return moveToWaypoint;
-            //        }
-            //        else if (foundWaypointDirection[i].y > 0)
-            //        {
-            //            moveToWaypoint = (Waypoint)foundWaypoints[i];
-            //            direction = foundWaypointDirection[i];
-            //            return moveToWaypoint;
-            //        }
-            //        else if (foundWaypointDirection[i].y < 0)
-            //        {
-            //            moveToWaypoint = (Waypoint)foundWaypoints[i];
-            //            direction = foundWaypointDirection[i];
-            //            return moveToWaypoint;
-            //        }
-            //        else
-            //        {
-            //            moveToWaypoint = (Waypoint)foundWaypoints[i];
-            //            direction = foundWaypointDirection[i];
-            //            return moveToWaypoint;
-            //        }
-            //    }
-            //}
         }
         return moveToWaypoint;
     }

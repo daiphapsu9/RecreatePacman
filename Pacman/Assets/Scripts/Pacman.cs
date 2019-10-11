@@ -83,6 +83,18 @@ public class Pacman : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.tag == "Waypoint")
+        {
+            Waypoint waypoint = collision.gameObject.GetComponent<Waypoint>();
+            // teleport to target portal
+            if(waypoint.isPortal)
+            {
+                Vector2 targetPortalPosition = waypoint.targetPortal.GetComponent<Transform>().position;
+                transform.position = targetPortalPosition;
+            }
+        }
+
         if (collision.gameObject.tag == "SmallBall")
         {
             if (!chompSound.isPlaying)

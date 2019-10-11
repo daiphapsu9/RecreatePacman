@@ -7,6 +7,8 @@ public class Waypoint : MonoBehaviour
 {
     public Waypoint[] neighbors;
     public Vector2[] validDirections;
+    public bool isPortal;
+    public Waypoint targetPortal;
 
     // Start is called before the first frame update
     void Start()
