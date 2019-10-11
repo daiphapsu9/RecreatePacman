@@ -268,7 +268,7 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            } else if (type == GhostType.Green || type == GhostType.Pink) // Random turn
+            } else if (type == GhostType.Green ) // Random turn
             { 
                 //Debug.Log("555 available  ==" + foundWaypoints.Count);
                 var random = UnityEngine.Random.Range(0, foundWaypoints.Count);
@@ -277,6 +277,15 @@ public class Ghost : MonoBehaviour
                 {
                     moveToWaypoint = (Waypoint)foundWaypoints[random];
                     direction = foundWaypointDirection[random];
+                }
+            } else //type == GhostType.Pinktype // move around clockwise
+            {
+                if (waypoints.Length > 1)
+                {
+                    Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
+                    moveToWaypoint = nextWaypoint;
+                    // Waypoint reached, select next one
+                    cur = (cur + 1) % waypoints.Length;
                 }
             }
 
@@ -290,17 +299,20 @@ public class Ghost : MonoBehaviour
             //            moveToWaypoint = (Waypoint)foundWaypoints[i];
             //            direction = foundWaypointDirection[i];
             //            return moveToWaypoint;
-            //        } else if (foundWaypointDirection[i].y > 0)
+            //        }
+            //        else if (foundWaypointDirection[i].y > 0)
             //        {
             //            moveToWaypoint = (Waypoint)foundWaypoints[i];
             //            direction = foundWaypointDirection[i];
             //            return moveToWaypoint;
-            //        } else if (foundWaypointDirection[i].y < 0)
+            //        }
+            //        else if (foundWaypointDirection[i].y < 0)
             //        {
             //            moveToWaypoint = (Waypoint)foundWaypoints[i];
             //            direction = foundWaypointDirection[i];
             //            return moveToWaypoint;
-            //        } else
+            //        }
+            //        else
             //        {
             //            moveToWaypoint = (Waypoint)foundWaypoints[i];
             //            direction = foundWaypointDirection[i];
@@ -322,6 +334,7 @@ public class Ghost : MonoBehaviour
     {
         mode = GhostMode.Scatter;
         scatterStartingTime = DateTime.Now;
+        cur = 0;
     }
 
     private void CheckMode()

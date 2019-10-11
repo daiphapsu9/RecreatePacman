@@ -12,6 +12,7 @@ TagManager:
   - Impassable
   - Freeze
   - Pacman
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - 
   - 
   - Enemy
-  - 
+  - Wall
   - 
   - 
   - 
