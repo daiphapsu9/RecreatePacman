@@ -39,45 +39,6 @@ public class Pacman : MonoBehaviour
             movement.x *= (float)System.Math.Sqrt(0.5);
             movement.y *= (float)System.Math.Sqrt(0.5);
         }
-
-        //int layer = 1 << 9;
-        //var lowerPosition = new Vector2(transform.position.x, transform.position.y-0.1f);
-        //var upperPosition = new Vector2(transform.position.x, transform.position.y + 0.1f);
-
-
-        //var direction = transform.TransformDirection(movement);
-        //if (movement.x == 0)
-        //{
-        //    lowerPosition = new Vector2(transform.position.x - 0.1f, transform.position.y);
-        //    upperPosition = new Vector2(transform.position.x + 0.1f, transform.position.y);
-        //}
-
-        //Debug.Log("movement == " + transform.TransformDirection(movement));
-
-        //Debug.DrawRay(transform.position, direction, Color.red);
-        //Debug.DrawRay(upperPosition, direction, Color.red);
-        //Debug.DrawRay(lowerPosition, direction, Color.red);
-
-        //RaycastHit2D hit1 = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, layer);
-        //RaycastHit2D hit2 = Physics2D.Raycast(upperPosition, direction, Mathf.Infinity, layer);
-        //RaycastHit2D hit3 = Physics2D.Raycast(lowerPosition, direction, Mathf.Infinity, layer);
-        //RaycastHit2D[] hits = { hit1, hit2, hit3};
-        //bool isBlocked = false;
-        //foreach (var hit in hits)
-        //{
-        //    if (hit)
-        //    {
-        //        if (hit.collider)
-        //        {
-        //            if (hit.distance <= 0.14)
-        //            {
-        //                isBlocked = true;
-        //            }
-        //        }
-
-        //    }
-        //}
-        //if (!isBlocked)
             transform.position = transform.position + movement * speed * Time.deltaTime;
     }
 
