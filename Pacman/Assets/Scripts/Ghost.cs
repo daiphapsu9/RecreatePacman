@@ -204,15 +204,26 @@ public class Ghost : MonoBehaviour
         {
             targetPosition = pacmanPos; 
         }
+        if (type == GhostType.Pink)
+        {
+            if (waypoints.Length > 1)
+            {
+                //Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
+                targetPosition = waypoints[cur].transform.position;
+                // Waypoint reached, select next one
+                cur = (cur + 1) % waypoints.Length;
+            }
+        }
 
         Waypoint moveToWaypoint = null;
         ArrayList foundWaypoints = new ArrayList();
         Vector2[] foundWaypointDirection = new Vector2[4];
         int wpCount = 0;
         //Debug.Log("2222 ChooseNextWaypoint  " + currentWaypoint.neighbors.Length);
+
         for (int i = 0; i < currentWaypoint.neighbors.Length; i++)
         {
-            if(currentWaypoint.validDirections[i] != direction * (-1))
+            if(currentWaypoint.validDirections[i] != direction * (-1) || currentWaypoint.neighbors.Length == 1)
             {
                 foundWaypoints.Add(currentWaypoint.neighbors[i]);
                 foundWaypointDirection[wpCount] = currentWaypoint.validDirections[i];
@@ -249,7 +260,7 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            } else if (type == GhostType.Red || mode == GhostMode.Scatter) // Chase Pacman or go back to base
+            } else if (type == GhostType.Red || type == GhostType.Pink || mode == GhostMode.Scatter) // Chase target position or go back to base
             {
                 //Debug.Log("4444 ChooseNextWaypoint  ");
                 float leastDis = 10000f;
@@ -278,16 +289,17 @@ public class Ghost : MonoBehaviour
                     moveToWaypoint = (Waypoint)foundWaypoints[random];
                     direction = foundWaypointDirection[random];
                 }
-            } else //type == GhostType.Pinktype // move around clockwise
-            {
-                if (waypoints.Length > 1)
-                {
-                    Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
-                    moveToWaypoint = nextWaypoint;
-                    // Waypoint reached, select next one
-                    cur = (cur + 1) % waypoints.Length;
-                }
             }
+            //else //type == GhostType.Pinktype // move around clockwise
+            //{
+            //    if (waypoints.Length > 1)
+            //    {
+            //        Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
+            //        moveToWaypoint = nextWaypoint;
+            //        // Waypoint reached, select next one
+            //        cur = (cur + 1) % waypoints.Length;
+            //    }
+            //}
 
             //if (type == GhostType.Pink) // turn clock-wise TODO: not working
             //{

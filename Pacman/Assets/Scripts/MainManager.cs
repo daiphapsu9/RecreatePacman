@@ -105,28 +105,28 @@ public class MainManager : MonoBehaviour
     private GameObject ObjectToSpawn()
     {
         int randomNumber = UnityEngine.Random.Range(0, 100);
-        // 10% will spawn banana peel
-        if (randomNumber < 5)
+        
+        if (randomNumber < 5) // 5% spawn banana
         {
             return cherry;
         }
-        else if (randomNumber < 15) // 30% spawn lightning pen
+        else if (randomNumber < 15) // 10% spawn pear
         {
             return strawberry;
         }
-        else if (randomNumber < 30) // 30% spawn lightning pen
+        else if (randomNumber < 30) // 15% spawn apple
         {
             return orange;
         }
-        else if (randomNumber < 50) // 30% spawn lightning pen
+        else if (randomNumber < 50) // 20% orange
         {
             return apple;
         }
-        else if (randomNumber < 75) // 30% spawn lightning pen
+        else if (randomNumber < 75) // 25% spawn strawberry
         {
             return pear;
         }
-        else //60% spawn normal pen
+        else //25% spawn cherry
         {
             return banana;
         }
