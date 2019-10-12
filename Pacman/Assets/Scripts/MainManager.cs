@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,11 +30,21 @@ public class MainManager : MonoBehaviour
     private GameObject pear;
     [SerializeField]
     private GameObject banana;
+    [SerializeField]
+    private AudioSource levelStartAudioSource;
+    [SerializeField]
+    private AudioSource backgroundAudioSource;
+
+    DateTime pauseStartingTime;
+    private float pauseDuration;
+    private bool firstStart = true;
 
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
+        Pause(2f);
+        //ShowReadyCanvas();
         StartCoroutine(SpawnTimer());
     }
 
@@ -41,6 +52,43 @@ public class MainManager : MonoBehaviour
     void Update()
     {
         uiManager.UpdateScore(score);
+        CheckPauseGame();
+    }
+
+    void CheckPauseGame()
+    {
+        if (Time.timeScale == 0) // is pausing, need to unpause
+        {
+            var timePassSincePause = DateTime.Now - pauseStartingTime;
+            if (timePassSincePause.Seconds > pauseDuration)
+            {
+                Unpause();
+                if (firstStart)
+                {
+                    StartReady();
+                }
+            }
+        }
+    }
+
+    void StartReady()
+    {
+        if (!levelStartAudioSource.isPlaying)
+        {
+            levelStartAudioSource.Play();
+        }
+        //Debug.Log("levelStartAudioSource.clip.length == " + levelStartAudioSource.clip.length);
+        Invoke("PlayBackgroundMusic", levelStartAudioSource.clip.length - pauseDuration - 1);
+        uiManager.readyCanvas.SetActive(false);
+        firstStart = false;
+    }
+
+    void PlayBackgroundMusic()
+    {
+        if (!backgroundAudioSource.isPlaying)
+        {
+            backgroundAudioSource.Play();
+        }
     }
 
     public void ConsumeGhost(){
@@ -75,10 +123,8 @@ public class MainManager : MonoBehaviour
     public IEnumerator SpawnTimer()
     {
         yield return new WaitForSeconds(10);
-        Debug.Log("start SpawnTimer SpawnTimer !!!!!");
         while (true)
         {
-            Debug.Log("SpawnTimer SpawnTimer !!!!!");
             SpawnFruits();
             yield return new WaitForSeconds(SpwanItemFrequency);
         }
@@ -108,28 +154,41 @@ public class MainManager : MonoBehaviour
         
         if (randomNumber < 5) // 5% spawn banana
         {
-            return cherry;
+            return banana;
         }
         else if (randomNumber < 15) // 10% spawn pear
         {
-            return strawberry;
+            return pear;
         }
         else if (randomNumber < 30) // 15% spawn apple
         {
-            return orange;
+            return apple;
         }
         else if (randomNumber < 50) // 20% orange
         {
-            return apple;
+            return orange;
         }
         else if (randomNumber < 75) // 25% spawn strawberry
         {
-            return pear;
+            return strawberry;
         }
         else //25% spawn cherry
         {
-            return banana;
+            return cherry;
         }
+    }
+
+    // Gameplay manage
+    public void Pause(float duration)
+    {
+        pauseStartingTime = DateTime.Now;
+        Time.timeScale = 0;
+        pauseDuration = duration;
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = 1;
 
     }
 }

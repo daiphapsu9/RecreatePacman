@@ -11,6 +11,8 @@ public class Pacman : MonoBehaviour
     [SerializeField]
     private AudioSource chompSound;
     [SerializeField]
+    private AudioSource eatFruitSound;
+    [SerializeField]
     private AudioSource deathSound;
     [SerializeField]
     private ParticleSystem collisionParticle;
@@ -79,9 +81,9 @@ public class Pacman : MonoBehaviour
 
         if (collision.gameObject.tag == "Fruit")
         {
-            if (!chompSound.isPlaying)
+            if (!eatFruitSound.isPlaying)
             {
-                chompSound.Play();
+                eatFruitSound.Play();
             }
             Fruit fruit = (Fruit)collision.gameObject.GetComponent<Fruit>();
             manager.ConsumeFruit(fruit);
