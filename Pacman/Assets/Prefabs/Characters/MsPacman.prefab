@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5881395846358777952}
   m_Layer: 0
   m_Name: MsPacman
-  m_TagString: Untagged
+  m_TagString: Pacman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +119,8 @@ MonoBehaviour:
   speed: 2
   animator: {fileID: 0}
   chompSound: {fileID: 0}
+  eatFruitSound: {fileID: 0}
+  deathSound: {fileID: 0}
   collisionParticle: {fileID: 4068558635601621826, guid: 4f164d8e7c2191743b24c7acfd3d3a9a,
     type: 3}
 --- !u!50 &1008054300026293166

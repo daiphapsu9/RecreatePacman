@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
@@ -39,20 +40,30 @@ public class MainManager : MonoBehaviour
     private float pauseDuration;
     private bool firstStart = true;
 
+    public GameMode gameMode;
+
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
-        Pause(2f);
-        //ShowReadyCanvas();
-        StartCoroutine(SpawnTimer());
+        gameMode = GameObject.Find("GameMode").GetComponent<GameMode>();
+        if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
+        {
+            Debug.Log("Scene 1 mode == " + gameMode.currentMode);
+            score = 0;
+            Pause(2f);
+            //ShowReadyCanvas();
+            StartCoroutine(SpawnTimer());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        uiManager.UpdateScore(score);
-        CheckPauseGame();
+        if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
+        {
+            uiManager.UpdateScore(score);
+            CheckPauseGame();
+        } 
     }
 
     void CheckPauseGame()
@@ -77,7 +88,6 @@ public class MainManager : MonoBehaviour
         {
             levelStartAudioSource.Play();
         }
-        //Debug.Log("levelStartAudioSource.clip.length == " + levelStartAudioSource.clip.length);
         Invoke("PlayBackgroundMusic", levelStartAudioSource.clip.length - pauseDuration - 1);
         uiManager.readyCanvas.SetActive(false);
         firstStart = false;

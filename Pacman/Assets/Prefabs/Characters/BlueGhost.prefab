@@ -154,4 +154,7 @@ MonoBehaviour:
   startingPoint: {fileID: 0}
   speed: 1.8
   type: 2
+  moveMode: 1
+  mode: 0
   waypoints: []
+  animator: {fileID: 0}

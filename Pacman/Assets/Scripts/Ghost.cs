@@ -19,6 +19,13 @@ public class Ghost : MonoBehaviour
         Scatter,
         Frightened
     }
+    public enum MoveMode
+    {
+        Chase,
+        RunAway,
+        Random,
+        Path
+    }
 
     public Waypoint startingPoint;
 
@@ -27,6 +34,8 @@ public class Ghost : MonoBehaviour
 
     [SerializeField]
     private GhostType type;
+    [SerializeField]
+    private MoveMode moveMode;
     public GhostMode mode;
 
     public GameObject[] waypoints;
@@ -88,13 +97,15 @@ public class Ghost : MonoBehaviour
 
             if (isOverShot())
             {
+                Debug.Log("Move 333");
                 currentWaypoint = targetWaypoint;
-                transform.localPosition = currentWaypoint.transform.position;
+                transform.position = currentWaypoint.transform.position;
                 targetWaypoint = ChooseNextWaypoint();
                 previousWaypoint = currentWaypoint;
                 currentWaypoint = null;
             } else
             {
+                Debug.Log("Move 444");
                 MoveToWaypoint(targetWaypoint);
             }
         }
@@ -143,9 +154,9 @@ public class Ghost : MonoBehaviour
         {
             targetPosition = pacmanPos; 
         }
-        if (type == GhostType.Pink)
+        if (moveMode == MoveMode.Path)
         {
-            if (waypoints.Length > 1)
+            if (waypoints.Length >= 1)
             {
                 //Waypoint nextWaypoint = waypoints[cur].GetComponent<Waypoint>();
                 targetPosition = waypoints[cur].transform.position;
@@ -158,7 +169,7 @@ public class Ghost : MonoBehaviour
         ArrayList foundWaypoints = new ArrayList();
         Vector2[] foundWaypointDirection = new Vector2[4];
         int wpCount = 0;
-        //Debug.Log("2222 ChooseNextWaypoint  " + currentWaypoint.neighbors.Length);
+        Debug.Log("2222 ChooseNextWaypoint  " + currentWaypoint.neighbors.Length);
 
         for (int i = 0; i < currentWaypoint.neighbors.Length; i++)
         {
@@ -168,11 +179,12 @@ public class Ghost : MonoBehaviour
                 foundWaypointDirection[wpCount] = currentWaypoint.validDirections[i];
                 wpCount++;
             }
+            //Debug.Log("333 foundWaypointDirection  " + foundWaypointDirection.Length);
         }
 
         if(foundWaypoints.Count == 1)
         {
-            //Debug.Log("333 ChooseNextWaypoint  ");
+            Debug.Log("333 ChooseNextWaypoint  ");
             moveToWaypoint = (Waypoint)foundWaypoints[0];
             direction = foundWaypointDirection[0];
         }
@@ -180,7 +192,7 @@ public class Ghost : MonoBehaviour
         if (foundWaypoints.Count > 1)
         {
 
-            if (type == GhostType.Blue || mode == GhostMode.Frightened) // run away
+            if (moveMode == MoveMode.RunAway || mode == GhostMode.Frightened) // run away
             {
                 //Debug.Log("4444 ChooseNextWaypoint  ");
                 float farthest = 0;
@@ -199,12 +211,13 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            } else if (type == GhostType.Red || type == GhostType.Pink || mode == GhostMode.Scatter) // Chase target position or go back to base
+            } else if (moveMode == MoveMode.Chase || moveMode == MoveMode.Path || mode == GhostMode.Scatter) // Chase target position or go back to base
             {
-                //Debug.Log("4444 ChooseNextWaypoint  ");
+                Debug.Log("4444 ChooseNextWaypoint  ");
                 float leastDis = 10000f;
                 for (int i = 0; i < foundWaypoints.Count; i++)
                 {
+                    Debug.Log("NEXT  ASASASD ChooseNextWaypoint  ");
                     if (foundWaypointDirection[i] != Vector2.zero)
                     {
                         float distance = GetDistance(((Waypoint)foundWaypoints[i]).transform.position, targetPosition);
@@ -218,7 +231,7 @@ public class Ghost : MonoBehaviour
                         }
                     }
                 }
-            } else if (type == GhostType.Green ) // Random turn
+            } else if (moveMode == MoveMode.Random) // Random turn
             { 
                 //Debug.Log("555 available  ==" + foundWaypoints.Count);
                 var random = UnityEngine.Random.Range(0, foundWaypoints.Count);
