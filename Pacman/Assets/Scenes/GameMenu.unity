@@ -1630,6 +1630,7 @@ MonoBehaviour:
   isOver: 0
   currentMode: 0
   pacman: {fileID: 0}
+  ballCount: 0
 --- !u!1 &676804947
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,8 +4200,8 @@ Canvas:
   m_GameObject: {fileID: 1805583977}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 5798730}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

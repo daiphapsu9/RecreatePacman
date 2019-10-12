@@ -11,16 +11,27 @@ public class GameData : MonoBehaviour
         BattleMode
     }
 
+    public enum GameResult
+    {
+        Win,
+        Lose,
+        Player1Win,
+        Player2Win,
+    }
+
     public int score;
     private int[] multiplier = { 1, 2, 4, 8 };
     private int currentMultiplierPos = 0;
     private int ghostScore = 200;
     private int smallBallScore = 10;
-    private int bigBallScore = 10;
+    private int bigBallScore = 50;
     public bool isOver = false;
     public Mode currentMode;
     public ArrayList allGhosts = new ArrayList();
     public Pacman pacman;
+    public int ballCount;
+    public GameResult gameResult;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,12 +51,24 @@ public class GameData : MonoBehaviour
 
     public void ConsumeSmallBall()
     {
-        score += 10;
+        score += smallBallScore;
+        ballCount--;
+        if (ballCount == 0)
+        {
+            isOver = true;
+            gameResult = GameResult.Win;
+        }
     }
 
     public void ConsumeBigBall()
     {
-        score += 50;
+        score += bigBallScore;
+        ballCount--;
+        if (ballCount == 0)
+        {
+            isOver = true;
+            gameResult = GameResult.Win;
+        }
     }
 
     public void ConsumeFruit(Fruit fruit)
@@ -81,7 +104,7 @@ public class GameData : MonoBehaviour
     }
 
     // Get Pacman and Ghosts references in each level
-    public void GetPacmanAndGhostsReference()
+    public void GetRequiredReference()
     {
         GameObject[] ghostObjectList = GameObject.FindGameObjectsWithTag("Ghost");
         foreach (GameObject ghostObject in ghostObjectList)
@@ -89,5 +112,7 @@ public class GameData : MonoBehaviour
             allGhosts.Add(ghostObject.GetComponent<Ghost>());
         }
         pacman = GameObject.FindGameObjectWithTag("Pacman").GetComponent<Pacman>();
+        ballCount += GameObject.FindGameObjectsWithTag("SmallBall").Length;
+        ballCount += GameObject.FindGameObjectsWithTag("BigBall").Length;
     }
 }

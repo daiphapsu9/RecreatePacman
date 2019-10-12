@@ -27,7 +27,6 @@ public class CollectableItem : MonoBehaviour
 
             //This is where you would pass the item to the Player script
             playerScript.OnPickupItem(this);
-            Object.Destroy(gameObject);
         }
     }
 }

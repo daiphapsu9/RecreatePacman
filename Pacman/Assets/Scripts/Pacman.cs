@@ -110,6 +110,7 @@ public class Pacman : ItemCollector
                 collisionParticle.Play();
                 gameObject.SetActive(false);
                 gameData.isOver = true;
+                gameData.gameResult = GameData.GameResult.Lose;
             }
         }
 
@@ -119,6 +120,7 @@ public class Pacman : ItemCollector
     {
         if (gameData.currentMode == GameData.Mode.ClassicMode)
         {
+            Object.Destroy(item.gameObject);
             return;
         }
         if (item.effect != null)
@@ -132,6 +134,7 @@ public class Pacman : ItemCollector
                 gameData.AddEffectToGhosts(item.effect);
             }
         }
+        Object.Destroy(item.gameObject);
     }
 
     float GetSpeed()

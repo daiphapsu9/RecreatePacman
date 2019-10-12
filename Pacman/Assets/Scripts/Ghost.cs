@@ -68,8 +68,9 @@ public class Ghost : ItemCollector
     }
 
     // Update is called once per frame
-    void Update()
+    override public void Update()
     {
+        base.Update();
         Move();
         CheckMode(); // check and reset ghost mode
         ChangeAnim();
@@ -82,19 +83,8 @@ public class Ghost : ItemCollector
 
     public void Move()
     {
-
         if (targetWaypoint != currentWaypoint && targetWaypoint != null)
         {
-            //Debug.Log("Move 11111");
-            if (nextDirection == direction *-1)
-            {
-                //Debug.Log("Move 2222");
-                direction *= -1;
-                Waypoint temp = targetWaypoint;
-                targetWaypoint = previousWaypoint;
-                previousWaypoint = temp;
-            }
-
             if (isOverShot())
             {
                 //Debug.Log("Move 333");
@@ -344,5 +334,6 @@ public class Ghost : ItemCollector
                 gameData.AddEffectToPacman(item.effect);
             }
         }
+        UnityEngine.Object.Destroy(item.gameObject);
     }
 }

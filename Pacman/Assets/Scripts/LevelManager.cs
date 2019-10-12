@@ -17,7 +17,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private GameObject[] spawningPoints;
 
-    private float SpwanItemFrequency = 5f;
+    private float SpwanItemFrequency = 7f;
     [SerializeField]
     private GameObject cherry;
     [SerializeField]
@@ -46,7 +46,7 @@ public class LevelManager : MonoBehaviour
     {
         
         gameData = GameObject.Find("GameData").GetComponent<GameData>();
-        gameData.GetPacmanAndGhostsReference();
+        gameData.GetRequiredReference();
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
             //Debug.Log("Scene 1 mode == " + gameData.currentMode);
@@ -68,7 +68,6 @@ public class LevelManager : MonoBehaviour
         {
             if (gameData.pacman.deathSound.isPlaying == false)
             {
-
                 SceneManager.LoadScene("GameOver");
             }
             //}
@@ -112,7 +111,7 @@ public class LevelManager : MonoBehaviour
 
     public IEnumerator SpawnTimer()
     {
-        //yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(SpwanItemFrequency);
         while (true)
         {
             SpawnFruits();
