@@ -16,6 +16,8 @@ public class Pacman : ItemCollector
     public AudioSource deathSound;
     [SerializeField]
     private ParticleSystem collisionParticle;
+    [SerializeField]
+    private bool isPlayer1;
     // Start is called before the first frame update
     GameData gameData;
     void Start()
@@ -28,7 +30,20 @@ public class Pacman : ItemCollector
     override public void Update()
     {
         base.Update();
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+        Vector3 movement;
+        if (gameData.currentMode != GameData.Mode.BattleMode) {
+            var inputMovement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            if (inputMovement == Vector3.zero)
+            {
+                movement = new Vector3(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"), 0.0f);
+            }
+            else movement = inputMovement;
+        } else
+        {
+            if(isPlayer1) movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            else movement = new Vector3(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"), 0.0f);
+        }
+        
         animator.SetFloat("DirX", movement.x);
         animator.SetFloat("DirY", movement.y);
         animator.SetFloat("PreX", movement.x);

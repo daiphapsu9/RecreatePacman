@@ -43220,6 +43220,11 @@ PrefabInstance:
       propertyPath: eatFruitSound
       value: 
       objectReference: {fileID: 5144143168845753639}
+    - target: {fileID: 1008054300026293164, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1008054300026293166, guid: df9e60ae9df1a0241a6c7c422232a833,
         type: 3}
       propertyPath: m_BodyType

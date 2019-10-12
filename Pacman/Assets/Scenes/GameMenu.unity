@@ -1631,6 +1631,7 @@ MonoBehaviour:
   currentMode: 0
   pacman: {fileID: 0}
   ballCount: 0
+  gameResult: 0
 --- !u!1 &676804947
 GameObject:
   m_ObjectHideFlags: 0
@@ -3143,6 +3144,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008054300026293162, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008054300026293162, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008054300026293162, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008054300026293162, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1008054300026293164, guid: df9e60ae9df1a0241a6c7c422232a833,
         type: 3}
