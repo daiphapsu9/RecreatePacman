@@ -22,7 +22,6 @@ public class GameMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("GAME OVER START!!!!");
         if (pacman == null) pacman = GameObject.FindGameObjectWithTag("Pacman");
         pacman.transform.position = new Vector2(pacman.transform.position.x, classicModeText.transform.position.y + 5);
         if (gameData == null) gameData = GameObject.Find("GameData").GetComponent<GameData>();
@@ -98,7 +97,7 @@ public class GameMenu : MonoBehaviour
                     SceneManager.LoadSceneAsync("Classic");
                     break;
                 case GameData.Mode.InnovativeMode:
-                    SceneManager.LoadSceneAsync("Classic");
+                    SceneManager.LoadSceneAsync("Innovative");
                     break;
                 case GameData.Mode.BattleMode:
                     SceneManager.LoadSceneAsync("Classic");

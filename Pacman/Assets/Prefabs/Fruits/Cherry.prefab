@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8688819483793297431}
   - component: {fileID: 8688819483793297416}
   - component: {fileID: 7457544979800045421}
+  - component: {fileID: 4782451679345854355}
   m_Layer: 0
   m_Name: Cherry
   m_TagString: Fruit
@@ -120,3 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 100
+--- !u!114 &4782451679345854355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688819483793297417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ca6cc64d0ae1c4f8668acad2deca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 0}

@@ -18,8 +18,9 @@ public class GameData : MonoBehaviour
     private int smallBallScore = 10;
     private int bigBallScore = 10;
     public bool isOver = false;
-
     public Mode currentMode;
+    public ArrayList allGhosts = new ArrayList();
+    public Pacman pacman;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,5 +63,31 @@ public class GameData : MonoBehaviour
         currentMultiplierPos = 0;
         score = 0;
         isOver = false;
+    }
+
+    public void AddEffectToGhosts(Effect effect)
+    {
+        foreach (Ghost ghost in allGhosts)
+        {
+            ghost.appliedEffect = effect;
+            ghost.appliedEffect.StartDurationCountDown();
+        }
+    }
+
+    public void AddEffectToPacman(Effect effect)
+    {
+        pacman.appliedEffect = effect;
+        pacman.appliedEffect.StartDurationCountDown();
+    }
+
+    // Get Pacman and Ghosts references in each level
+    public void GetPacmanAndGhostsReference()
+    {
+        GameObject[] ghostObjectList = GameObject.FindGameObjectsWithTag("Ghost");
+        foreach (GameObject ghostObject in ghostObjectList)
+        {
+            allGhosts.Add(ghostObject.GetComponent<Ghost>());
+        }
+        pacman = GameObject.FindGameObjectWithTag("Pacman").GetComponent<Pacman>();
     }
 }

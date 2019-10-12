@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using UnityEngine;
 
-public class Pacman : MonoBehaviour
+public class Pacman : ItemCollector
 {
     public float speed;
     public Animator animator;
@@ -13,7 +13,7 @@ public class Pacman : MonoBehaviour
     [SerializeField]
     private AudioSource eatFruitSound;
     [SerializeField]
-    private AudioSource deathSound;
+    public AudioSource deathSound;
     [SerializeField]
     private ParticleSystem collisionParticle;
     // Start is called before the first frame update
@@ -25,10 +25,9 @@ public class Pacman : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    override public void Update()
     {
-
-
+        base.Update();
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
         animator.SetFloat("DirX", movement.x);
         animator.SetFloat("DirY", movement.y);
@@ -41,7 +40,8 @@ public class Pacman : MonoBehaviour
             movement.x *= (float)System.Math.Sqrt(0.5);
             movement.y *= (float)System.Math.Sqrt(0.5);
         }
-            transform.position = transform.position + movement * speed * Time.deltaTime;
+        Debug.Log("GetSpeed == " + GetSpeed());
+        transform.position = transform.position + movement * GetSpeed() * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -87,7 +87,6 @@ public class Pacman : MonoBehaviour
             }
             Fruit fruit = (Fruit)collision.gameObject.GetComponent<Fruit>();
             gameData.ConsumeFruit(fruit);
-            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.tag == "Ghost")
@@ -116,6 +115,42 @@ public class Pacman : MonoBehaviour
 
     }
 
+    public override void OnPickupItem(CollectableItem item)
+    {
+        if (gameData.currentMode == GameData.Mode.ClassicMode)
+        {
+            return;
+        }
+        if (item.effect != null)
+        {
+            if (item.effect.type == EffectType.IncreaseSpeed)
+            {
+                appliedEffect = item.effect;
+                appliedEffect.StartDurationCountDown();
+            } else if (item.effect.type == EffectType.ReduceSpeed)
+            {
+                gameData.AddEffectToGhosts(item.effect);
+            }
+        }
+    }
 
-    
+    float GetSpeed()
+    {
+        if (appliedEffect == null)
+        {
+            return speed;
+        }
+        switch (appliedEffect.type)
+        {
+            case EffectType.IncreaseSpeed:
+                return speed + appliedEffect.value;
+            case EffectType.ReduceSpeed:
+                return speed - appliedEffect.value;
+            case EffectType.Stun:
+                animator.SetBool("Stun", true);
+                return 0;
+            default:
+                return speed;
+        }
+    }
 }

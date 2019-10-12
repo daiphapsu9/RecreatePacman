@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1828161883173767434}
   - component: {fileID: 1828161883173767437}
   - component: {fileID: 1838356994015720911}
+  - component: {fileID: 3898389513817801301}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Fruit
@@ -120,3 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 700
+--- !u!114 &3898389513817801301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828161883173767436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ca6cc64d0ae1c4f8668acad2deca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 5720628946104890591, guid: 325d67a694779174db4705186c050c6a, type: 3}

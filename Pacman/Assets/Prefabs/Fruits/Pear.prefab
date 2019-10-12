@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3709997060847403567}
   - component: {fileID: 3709997060847403552}
   - component: {fileID: 6758616725241181010}
+  - component: {fileID: 5980018841605052249}
   m_Layer: 0
   m_Name: Pear
   m_TagString: Fruit
@@ -120,3 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1000
+--- !u!114 &5980018841605052249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3709997060847403553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ca6cc64d0ae1c4f8668acad2deca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 0}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ghost : MonoBehaviour
+public class Ghost : ItemCollector
 {
     enum GhostType
     {
@@ -54,7 +54,7 @@ public class Ghost : MonoBehaviour
     private Vector2 headingDir;
     private Vector2 scan;
     private Vector2 lookingDir;
-    GameData dataManager;
+    GameData gameData;
     void Start()
     {
         pacman = GameObject.FindGameObjectWithTag("Pacman");
@@ -64,7 +64,7 @@ public class Ghost : MonoBehaviour
         targetWaypoint = startingPoint;
         direction = Vector2.up;
         previousWaypoint = startingPoint;
-        dataManager = GameObject.Find("GameData").GetComponent<GameData>();
+        gameData = GameObject.Find("GameData").GetComponent<GameData>();
     }
 
     // Update is called once per frame
@@ -97,7 +97,7 @@ public class Ghost : MonoBehaviour
 
             if (isOverShot())
             {
-                Debug.Log("Move 333");
+                //Debug.Log("Move 333");
                 currentWaypoint = targetWaypoint;
                 transform.position = currentWaypoint.transform.position;
                 targetWaypoint = ChooseNextWaypoint();
@@ -105,7 +105,7 @@ public class Ghost : MonoBehaviour
                 currentWaypoint = null;
             } else
             {
-                Debug.Log("Move 444");
+                //Debug.Log("Move 444");
                 MoveToWaypoint(targetWaypoint);
             }
         }
@@ -262,7 +262,7 @@ public class Ghost : MonoBehaviour
             TimeSpan time = DateTime.Now - scaredStartingTime;
             if (time.Seconds >= scaredDuration)
             {
-                dataManager.ResetMultiplier();
+                gameData.ResetMultiplier();
                 mode = GhostMode.Normal;
             }
         }
@@ -309,6 +309,40 @@ public class Ghost : MonoBehaviour
         {
             return speed / 2;
         }
-        return speed;
+        if (appliedEffect == null)
+        {
+            return speed;
+        }
+        switch (appliedEffect.type)
+        {
+            case EffectType.IncreaseSpeed:
+                return speed + appliedEffect.value;
+            case EffectType.ReduceSpeed:
+                return speed - appliedEffect.value;
+            case EffectType.Stun:
+                animator.SetBool("Stun", true);
+                return 0;
+            default:
+                return speed;
+        }
+    }
+
+    public override void OnPickupItem(CollectableItem item)
+    {
+        if (gameData.currentMode == GameData.Mode.ClassicMode)
+        {
+            return;
+        }
+        if (item.effect != null)
+        {
+            if (item.effect.type == EffectType.IncreaseSpeed)
+            {
+                gameData.AddEffectToGhosts(item.effect);
+            }
+            else if (item.effect.type == EffectType.ReduceSpeed)
+            {
+                gameData.AddEffectToPacman(item.effect);
+            }
+        }
     }
 }

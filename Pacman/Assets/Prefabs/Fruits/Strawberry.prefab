@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6204612793277721966}
   - component: {fileID: 6204612793277721967}
   - component: {fileID: 7465493831036754322}
+  - component: {fileID: 3936278827753052919}
   m_Layer: 0
   m_Name: Strawberry
   m_TagString: Fruit
@@ -120,3 +121,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 300
+--- !u!114 &3936278827753052919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204612793277721964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86ca6cc64d0ae1c4f8668acad2deca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 0}

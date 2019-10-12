@@ -164,7 +164,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 240
+  orthographic size: 230
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -188,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5798728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 380, y: 240, z: -10}
+  m_LocalPosition: {x: 380, y: 230, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -490,8 +490,7 @@ MonoBehaviour:
   classicModeText: {fileID: 676804949}
   innovativeModeText: {fileID: 619606521}
   battleModeText: {fileID: 1704770385}
-  cursorText: {fileID: 0}
-  gameMode: {fileID: 663804382}
+  gameData: {fileID: 0}
   pacman: {fileID: 941633919}
 --- !u!4 &293108330
 Transform:
@@ -1495,7 +1494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.0000076, y: -106.000015}
+  m_AnchoredPosition: {x: 6.0000076, y: -95.000015}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &619606521
@@ -1627,7 +1626,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19617347458757b458b8df1b796af871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  isOver: 0
   currentMode: 0
+  pacman: {fileID: 0}
 --- !u!1 &676804947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,7 +1664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.999992, y: -61.000008}
+  m_AnchoredPosition: {x: -10.999992, y: -50.000008}
   m_SizeDelta: {x: 214.96002, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &676804949
@@ -4085,7 +4087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.520103, y: -156}
+  m_AnchoredPosition: {x: -10.520103, y: -145}
   m_SizeDelta: {x: 214.96, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704770385
