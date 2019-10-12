@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
+    // Fruits give different score amount based on type
     enum FruitType
     {
         Cherry = 100,
@@ -19,7 +20,7 @@ public class Fruit : MonoBehaviour
 
     public int GetPoints()
     {
-        return (int)type;
+        return (int)type; // return points based on type
     }
 
 }

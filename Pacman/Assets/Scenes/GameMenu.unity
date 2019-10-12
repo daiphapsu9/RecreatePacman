@@ -1494,7 +1494,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.0000076, y: -95.000015}
+  m_AnchoredPosition: {x: 6.0000076, y: -112.000015}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &619606521
@@ -1627,9 +1627,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
+  player2Score: 0
   isOver: 0
   currentMode: 0
-  pacman: {fileID: 0}
   ballCount: 0
   gameResult: 0
 --- !u!1 &676804947
@@ -1666,7 +1666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.999992, y: -50.000008}
+  m_AnchoredPosition: {x: -10.999992, y: -67.00001}
   m_SizeDelta: {x: 214.96002, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &676804949
@@ -4109,7 +4109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.520103, y: -145}
+  m_AnchoredPosition: {x: -10.520103, y: -162}
   m_SizeDelta: {x: 214.96, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704770385
@@ -4206,7 +4206,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

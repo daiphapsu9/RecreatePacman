@@ -5,9 +5,9 @@ using System;
 
 public enum EffectType
 {
-    IncreaseSpeed, // increase speed by 2
-    ReduceSpeed, // decrease speed by 2
-    Stun // immobile 
+    IncreaseSpeed, // increase speed by 0.5
+    ReduceSpeed, // decrease speed by 0.5
+    Stun // immobile, not using yet
 }
 
 public class Effect : MonoBehaviour
@@ -33,6 +33,7 @@ public class Effect : MonoBehaviour
 
     public bool IsEffectEnded()
     {
+        // check if time passes duration, then disable effect
         TimeSpan time = DateTime.Now - effectStartingTime;
         
         if (time.Seconds >= duration)
