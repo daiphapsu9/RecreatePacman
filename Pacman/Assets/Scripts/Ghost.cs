@@ -41,7 +41,8 @@ public class Ghost : ItemCollector
     public GameObject[] waypoints;
     private Waypoint currentWaypoint, previousWaypoint, targetWaypoint;
     private Vector2 direction, nextDirection;
-    private GameObject pacman;
+    private Pacman pacman1;
+    private Pacman pacman2;
     int cur = 0;
     public Animator animator;
 
@@ -55,12 +56,12 @@ public class Ghost : ItemCollector
     private Vector2 scan;
     private Vector2 lookingDir;
     GameData gameData;
+    [SerializeField]
+    private GameObject[] oponents;
     void Start()
-    {
-        pacman = GameObject.FindGameObjectWithTag("Pacman");
+    { 
         //Waypoint startingWaypoint = waypoints[0].GetComponent<Waypoint>();
         mode = GhostMode.Normal;
-        Vector2 pacmanPos = pacman.transform.position;
         targetWaypoint = startingPoint;
         direction = Vector2.up;
         previousWaypoint = startingPoint;
@@ -132,9 +133,24 @@ public class Ghost : ItemCollector
 
     Waypoint ChooseNextWaypoint()
     {
-        //Debug.Log("ChooseNextWaypoint ChooseNextWaypoint");
-
-        Vector2 pacmanPos = pacman.transform.position;
+        Vector2 pacmanPos = startingPoint.transform.position;
+        if (gameData.allPacmans.Count > 1)
+        {
+            Vector2 pacman1Pos = ((Pacman)gameData.allPacmans[0]).transform.position;
+            Vector2 pacman2Pos = ((Pacman)gameData.allPacmans[1]).transform.position;
+            float distanceToPacman1 = GetDistance(transform.position, pacman1Pos);
+            float distanceToPacman2 = GetDistance(transform.position, pacman2Pos);
+            if (distanceToPacman2 < distanceToPacman1)
+            {
+                pacmanPos = pacman2Pos;
+            }
+            else pacmanPos = pacman1Pos;
+        }
+        else if(gameData.allPacmans.Count == 1)
+        {
+             pacmanPos = ((Pacman)gameData.allPacmans[0]).transform.position;
+        }
+        
         Vector2 targetPosition = pacmanPos;
         if (mode == GhostMode.Scatter)
         {

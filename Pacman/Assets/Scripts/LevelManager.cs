@@ -61,16 +61,18 @@ public class LevelManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
-            uiManager.UpdateScore(gameData.score);
+            uiManager.UpdateScore(gameData.score,gameData.currentMode, gameData.player2Score);
             CheckPauseGame();
         }
         if (gameData.isOver)
         {
-            if (gameData.pacman.deathSound.isPlaying == false)
+            foreach (Pacman pacman in gameData.allPacmans)
             {
-                SceneManager.LoadScene("GameOver");
+                if (pacman.deathSound.isPlaying == false)
+                {
+                    SceneManager.LoadScene("GameOver");
+                }
             }
-            //}
         }
     }
 

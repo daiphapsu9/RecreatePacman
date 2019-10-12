@@ -100,7 +100,7 @@ public class GameMenu : MonoBehaviour
                     SceneManager.LoadSceneAsync("Innovative");
                     break;
                 case GameData.Mode.BattleMode:
-                    SceneManager.LoadSceneAsync("Classic");
+                    SceneManager.LoadSceneAsync("Battle");
                     break;
             }
             gameData.isOver = false;

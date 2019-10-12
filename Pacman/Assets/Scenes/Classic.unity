@@ -10604,6 +10604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 876347415}
+  player2ScoreText: {fileID: 0}
   readyCanvas: {fileID: 917342033}
 --- !u!1001 &469051109
 PrefabInstance:
@@ -23158,11 +23159,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 791219986157433628, guid: 698935f6257f28d418fec84d5a22961d,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8392787732056688777, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
       propertyPath: waypoints.Array.size
@@ -23308,6 +23304,11 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[25]
       value: 
       objectReference: {fileID: 1545913339}
+    - target: {fileID: 791219986157433628, guid: 698935f6257f28d418fec84d5a22961d,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5495277126564958470, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
       propertyPath: m_IsTrigger
@@ -45313,6 +45314,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958719045320319585, guid: b5dec6070260fda48bb3c29488b451fd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958719046123547382, guid: b5dec6070260fda48bb3c29488b451fd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.46
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5958719046425715007, guid: b5dec6070260fda48bb3c29488b451fd, type: 3}

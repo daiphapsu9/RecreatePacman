@@ -6,18 +6,7 @@ using UnityEngine;
 
 public class CollectableItem : MonoBehaviour
 {
-    public Effect effect; 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Effect effect;
 
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {

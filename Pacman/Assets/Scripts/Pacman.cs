@@ -18,6 +18,8 @@ public class Pacman : ItemCollector
     private ParticleSystem collisionParticle;
     [SerializeField]
     private bool isPlayer1;
+    [SerializeField]
+    private GameObject[] oponents;
     // Start is called before the first frame update
     GameData gameData;
     void Start()
@@ -55,7 +57,7 @@ public class Pacman : ItemCollector
             movement.x *= (float)System.Math.Sqrt(0.5);
             movement.y *= (float)System.Math.Sqrt(0.5);
         }
-        Debug.Log("GetSpeed == " + GetSpeed());
+        //Debug.Log("GetSpeed == " + GetSpeed());
         transform.position = transform.position + movement * GetSpeed() * Time.deltaTime;
     }
 
@@ -79,7 +81,7 @@ public class Pacman : ItemCollector
             {
                 chompSound.Play();
             }
-            gameData.ConsumeSmallBall();
+            gameData.ConsumeSmallBall(isPlayer1);
             Destroy(collision.gameObject);
         }
 
@@ -90,7 +92,7 @@ public class Pacman : ItemCollector
             {
                 ghost.GetComponent<Ghost>().BecomeScared();
             }
-            gameData.ConsumeBigBall();
+            gameData.ConsumeBigBall(isPlayer1);
             Destroy(collision.gameObject);
         }
 
@@ -101,7 +103,7 @@ public class Pacman : ItemCollector
                 eatFruitSound.Play();
             }
             Fruit fruit = (Fruit)collision.gameObject.GetComponent<Fruit>();
-            gameData.ConsumeFruit(fruit);
+            gameData.ConsumeFruit(fruit, isPlayer1);
         }
 
         if (collision.gameObject.tag == "Ghost")
@@ -109,7 +111,7 @@ public class Pacman : ItemCollector
             Ghost ghost = collision.gameObject.GetComponent<Ghost>();
             if (ghost.mode == Ghost.GhostMode.Frightened)
             {
-                gameData.ConsumeGhost();
+                gameData.ConsumeGhost(isPlayer1);
                 ghost.BecomeScatter();
             } else if(ghost.mode != Ghost.GhostMode.Scatter)
             {
@@ -125,7 +127,14 @@ public class Pacman : ItemCollector
                 collisionParticle.Play();
                 gameObject.SetActive(false);
                 gameData.isOver = true;
-                gameData.gameResult = GameData.GameResult.Lose;
+                if (gameData.currentMode == GameData.Mode.BattleMode)
+                {
+                    gameData.gameResult = (isPlayer1) ? GameData.GameResult.Player2Win : GameData.GameResult.Player1Win;
+                }
+                else
+                {
+                    gameData.gameResult = GameData.GameResult.Lose;
+                }
             }
         }
 
@@ -146,6 +155,15 @@ public class Pacman : ItemCollector
                 appliedEffect.StartDurationCountDown();
             } else if (item.effect.type == EffectType.ReduceSpeed)
             {
+                //gameData.AddEffectToGhosts(item.effect);
+                foreach (GameObject oponent in oponents)
+                {
+                    if (oponent.tag == "Pacman")
+                    {
+                        oponent.GetComponent<Pacman>().appliedEffect = item.effect;
+                        oponent.GetComponent<Pacman>().appliedEffect.StartDurationCountDown();
+                    }
+                }
                 gameData.AddEffectToGhosts(item.effect);
             }
         }

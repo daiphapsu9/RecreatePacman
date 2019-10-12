@@ -15,6 +15,8 @@ public class GameOver : MonoBehaviour
     private GameObject Player1WinText;
     [SerializeField]
     private GameObject Player2WinText;
+    [SerializeField]
+    private GameObject DrawText;
     public GameData gameData;
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,10 @@ public class GameOver : MonoBehaviour
                 break;
             case GameData.GameResult.Player2Win:
                 Player2WinText.SetActive(true);
+                ScoreText.text = gameData.player2Score.ToString();
+                break;
+            case GameData.GameResult.Draw:
+                DrawText.SetActive(true);
                 break;
         }
     }

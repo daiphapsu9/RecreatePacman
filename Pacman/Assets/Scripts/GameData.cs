@@ -17,18 +17,21 @@ public class GameData : MonoBehaviour
         Lose,
         Player1Win,
         Player2Win,
+        Draw
     }
 
     public int score;
+    public int player2Score;
     private int[] multiplier = { 1, 2, 4, 8 };
     private int currentMultiplierPos = 0;
+    private int currentPlayer2MultiplierPos = 0;
     private int ghostScore = 200;
     private int smallBallScore = 10;
     private int bigBallScore = 50;
     public bool isOver = false;
     public Mode currentMode;
     public ArrayList allGhosts = new ArrayList();
-    public Pacman pacman;
+    public ArrayList allPacmans = new ArrayList();
     public int ballCount;
     public GameResult gameResult;
 
@@ -36,44 +39,71 @@ public class GameData : MonoBehaviour
     void Start()
     {
         currentMode = GameData.Mode.ClassicMode;
+        GetRequiredReference();
         DontDestroyOnLoad(this);
     }
 
-    public void ConsumeGhost()
+    public void ConsumeGhost(bool isPlayer1 = true)
     {
-
-        score += ghostScore * multiplier[currentMultiplierPos];
-        if (currentMultiplierPos < multiplier.Length - 1)
+        if (isPlayer1)
         {
-            currentMultiplierPos++;
+            score += ghostScore * multiplier[currentMultiplierPos];
+            if (currentMultiplierPos < multiplier.Length - 1)
+            {
+                currentMultiplierPos++;
+            }
+        }
+        else
+        {
+            player2Score += ghostScore * multiplier[currentPlayer2MultiplierPos];
+            if (currentPlayer2MultiplierPos < multiplier.Length - 1)
+            {
+                currentPlayer2MultiplierPos++;
+            }
         }
     }
 
-    public void ConsumeSmallBall()
+    public void ConsumeSmallBall(bool isPlayer1 = true)
     {
-        score += smallBallScore;
+        if (isPlayer1)
+        {
+            score += smallBallScore;
+        } else player2Score += smallBallScore;
+
         ballCount--;
         if (ballCount == 0)
         {
             isOver = true;
-            gameResult = GameResult.Win;
+            if (score > player2Score) { gameResult = GameResult.Player1Win; }
+            else if (score < player2Score) { gameResult = GameResult.Player2Win; }
+            else gameResult = GameResult.Draw;
         }
     }
 
-    public void ConsumeBigBall()
+    public void ConsumeBigBall(bool isPlayer1 = true)
     {
-        score += bigBallScore;
+        if (isPlayer1)
+        {
+            score += bigBallScore;
+        }
+        else player2Score += bigBallScore;
         ballCount--;
         if (ballCount == 0)
         {
             isOver = true;
-            gameResult = GameResult.Win;
+            if (score > player2Score) { gameResult = GameResult.Player1Win; }
+            else if (score < player2Score) { gameResult = GameResult.Player2Win; }
+            else gameResult = GameResult.Draw;
         }
     }
 
-    public void ConsumeFruit(Fruit fruit)
+    public void ConsumeFruit(Fruit fruit, bool isPlayer1 = true)
     {
-        score += fruit.GetPoints();
+        if (isPlayer1)
+        {
+            score += fruit.GetPoints();
+        }
+        else player2Score += fruit.GetPoints();
     }
 
     public void ResetMultiplier()
@@ -99,19 +129,28 @@ public class GameData : MonoBehaviour
 
     public void AddEffectToPacman(Effect effect)
     {
-        pacman.appliedEffect = effect;
-        pacman.appliedEffect.StartDurationCountDown();
+        foreach (Pacman pacman in allPacmans)
+        {
+            pacman.appliedEffect = effect;
+            pacman.appliedEffect.StartDurationCountDown();
+        }
     }
 
     // Get Pacman and Ghosts references in each level
     public void GetRequiredReference()
     {
+        allGhosts = new ArrayList();
+        allPacmans = new ArrayList();
+        GameObject[] pacmanObjectList = GameObject.FindGameObjectsWithTag("Pacman");
+        foreach (GameObject pacman in pacmanObjectList)
+        {
+            allPacmans.Add(pacman.GetComponent<Pacman>());
+        }
         GameObject[] ghostObjectList = GameObject.FindGameObjectsWithTag("Ghost");
         foreach (GameObject ghostObject in ghostObjectList)
         {
             allGhosts.Add(ghostObject.GetComponent<Ghost>());
         }
-        pacman = GameObject.FindGameObjectWithTag("Pacman").GetComponent<Pacman>();
         ballCount += GameObject.FindGameObjectsWithTag("SmallBall").Length;
         ballCount += GameObject.FindGameObjectsWithTag("BigBall").Length;
     }
