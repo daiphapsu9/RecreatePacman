@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    private int score;
     private int[] multiplier = { 1, 2, 4, 8 };
     private int currentMultiplierPos = 0;
     private int ghostScore = 200;
@@ -40,16 +39,15 @@ public class MainManager : MonoBehaviour
     private float pauseDuration;
     private bool firstStart = true;
 
-    public GameMode gameMode;
+    public GameData gameData;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameMode = GameObject.Find("GameMode").GetComponent<GameMode>();
+        gameData = GameObject.Find("GameData").GetComponent<GameData>();
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
-            Debug.Log("Scene 1 mode == " + gameMode.currentMode);
-            score = 0;
+            //Debug.Log("Scene 1 mode == " + gameData.currentMode);
             Pause(2f);
             //ShowReadyCanvas();
             StartCoroutine(SpawnTimer());
@@ -61,9 +59,13 @@ public class MainManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
-            uiManager.UpdateScore(score);
+            uiManager.UpdateScore(gameData.score);
             CheckPauseGame();
-        } 
+        }
+        if (gameData.isOver)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     void CheckPauseGame()
@@ -101,35 +103,6 @@ public class MainManager : MonoBehaviour
         }
     }
 
-    public void ConsumeGhost(){
-
-        score += ghostScore * multiplier[currentMultiplierPos];
-        if (currentMultiplierPos < multiplier.Length - 1)
-        {
-            currentMultiplierPos++;
-        }
-    }
-
-    public void ConsumeSmallBall()
-    {
-        score += 10;
-    }
-
-    public void ConsumeBigBall()
-    {
-        score += 50;
-    }
-
-    public void ConsumeFruit(Fruit fruit)
-    {
-        score += fruit.GetPoints();
-    }
-
-    public void ResetMultiplier()
-    {
-        if (currentMultiplierPos != 0) currentMultiplierPos = 0;
-    }
-
     public IEnumerator SpawnTimer()
     {
         yield return new WaitForSeconds(10);
@@ -152,12 +125,6 @@ public class MainManager : MonoBehaviour
         Instantiate(toInstantiate, new Vector3(point.transform.position.x, point.transform.position.y, 0), Quaternion.identity);
     }
 
-    //Cherry = 100,
-    //    Strawberry = 300,
-    //    Orange = 500,
-    //    Apple = 700,
-    //    Pear = 1000,
-    //    Banana = 2000,
     private GameObject ObjectToSpawn()
     {
         int randomNumber = UnityEngine.Random.Range(0, 100);

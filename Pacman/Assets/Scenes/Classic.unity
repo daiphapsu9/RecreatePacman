@@ -22432,11 +22432,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1262534171979333382, guid: 24cc34f364f68f848b8fe6989627f9d6,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6458203820294181262, guid: 24cc34f364f68f848b8fe6989627f9d6,
         type: 3}
       propertyPath: startingPoint
@@ -22447,6 +22442,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1486427942}
+    - target: {fileID: 1262534171979333382, guid: 24cc34f364f68f848b8fe6989627f9d6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24cc34f364f68f848b8fe6989627f9d6, type: 3}
 --- !u!1001 &1173603756
@@ -22526,15 +22526,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5495277126564958470, guid: 698935f6257f28d418fec84d5a22961d,
+    - target: {fileID: 791219986157433628, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5495277126564958470, guid: 698935f6257f28d418fec84d5a22961d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8392787732056688777, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
@@ -22681,10 +22676,15 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[25]
       value: 
       objectReference: {fileID: 1545913339}
-    - target: {fileID: 791219986157433628, guid: 698935f6257f28d418fec84d5a22961d,
+    - target: {fileID: 5495277126564958470, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495277126564958470, guid: 698935f6257f28d418fec84d5a22961d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 698935f6257f28d418fec84d5a22961d, type: 3}
@@ -33051,11 +33051,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2839489551770562025, guid: aabaf165dd006ce41ac33f31f44ac03b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8609324403272617416, guid: aabaf165dd006ce41ac33f31f44ac03b,
         type: 3}
       propertyPath: startingPoint
@@ -33066,6 +33061,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 2115444514}
+    - target: {fileID: 2839489551770562025, guid: aabaf165dd006ce41ac33f31f44ac03b,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabaf165dd006ce41ac33f31f44ac03b, type: 3}
 --- !u!4 &1752761323 stripped
@@ -42723,6 +42723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3285003811922291905, guid: bbd6c6fa0630f3e4da14c390de062ae2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3285003811922291906, guid: bbd6c6fa0630f3e4da14c390de062ae2,
         type: 3}

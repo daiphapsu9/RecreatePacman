@@ -17,11 +17,11 @@ public class Pacman : MonoBehaviour
     [SerializeField]
     private ParticleSystem collisionParticle;
     // Start is called before the first frame update
-    MainManager manager;
+    GameData gameData;
     void Start()
     {
         animator = GetComponent<Animator>();
-        manager = GameObject.Find("Manager").GetComponent<MainManager>();
+        gameData = GameObject.Find("GameData").GetComponent<GameData>();
     }
 
     // Update is called once per frame
@@ -64,7 +64,7 @@ public class Pacman : MonoBehaviour
             {
                 chompSound.Play();
             }
-            manager.ConsumeSmallBall();
+            gameData.ConsumeSmallBall();
             Destroy(collision.gameObject);
         }
 
@@ -75,7 +75,7 @@ public class Pacman : MonoBehaviour
             {
                 ghost.GetComponent<Ghost>().BecomeScared();
             }
-            manager.ConsumeBigBall();
+            gameData.ConsumeBigBall();
             Destroy(collision.gameObject);
         }
 
@@ -86,7 +86,7 @@ public class Pacman : MonoBehaviour
                 eatFruitSound.Play();
             }
             Fruit fruit = (Fruit)collision.gameObject.GetComponent<Fruit>();
-            manager.ConsumeFruit(fruit);
+            gameData.ConsumeFruit(fruit);
             Destroy(collision.gameObject);
         }
 
@@ -95,7 +95,7 @@ public class Pacman : MonoBehaviour
             Ghost ghost = collision.gameObject.GetComponent<Ghost>();
             if (ghost.mode == Ghost.GhostMode.Frightened)
             {
-                manager.ConsumeGhost();
+                gameData.ConsumeGhost();
                 ghost.BecomeScatter();
             } else if(ghost.mode != Ghost.GhostMode.Scatter)
             {
@@ -109,8 +109,8 @@ public class Pacman : MonoBehaviour
                 }
                 collisionParticle.transform.position = gameObject.transform.position;
                 collisionParticle.Play();
-                //Destroy(this.gameObject);
                 gameObject.SetActive(false);
+                gameData.isOver = true;
             }
         }
 

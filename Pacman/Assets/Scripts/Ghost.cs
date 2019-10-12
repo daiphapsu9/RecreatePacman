@@ -54,7 +54,7 @@ public class Ghost : MonoBehaviour
     private Vector2 headingDir;
     private Vector2 scan;
     private Vector2 lookingDir;
-    MainManager manager;
+    GameData dataManager;
     void Start()
     {
         pacman = GameObject.FindGameObjectWithTag("Pacman");
@@ -64,7 +64,7 @@ public class Ghost : MonoBehaviour
         targetWaypoint = startingPoint;
         direction = Vector2.up;
         previousWaypoint = startingPoint;
-        manager = GameObject.Find("Manager").GetComponent<MainManager>();
+        dataManager = GameObject.Find("GameData").GetComponent<GameData>();
     }
 
     // Update is called once per frame
@@ -169,7 +169,6 @@ public class Ghost : MonoBehaviour
         ArrayList foundWaypoints = new ArrayList();
         Vector2[] foundWaypointDirection = new Vector2[4];
         int wpCount = 0;
-        Debug.Log("2222 ChooseNextWaypoint  " + currentWaypoint.neighbors.Length);
 
         for (int i = 0; i < currentWaypoint.neighbors.Length; i++)
         {
@@ -184,7 +183,6 @@ public class Ghost : MonoBehaviour
 
         if(foundWaypoints.Count == 1)
         {
-            Debug.Log("333 ChooseNextWaypoint  ");
             moveToWaypoint = (Waypoint)foundWaypoints[0];
             direction = foundWaypointDirection[0];
         }
@@ -213,11 +211,9 @@ public class Ghost : MonoBehaviour
                 }
             } else if (moveMode == MoveMode.Chase || moveMode == MoveMode.Path || mode == GhostMode.Scatter) // Chase target position or go back to base
             {
-                Debug.Log("4444 ChooseNextWaypoint  ");
                 float leastDis = 10000f;
                 for (int i = 0; i < foundWaypoints.Count; i++)
                 {
-                    Debug.Log("NEXT  ASASASD ChooseNextWaypoint  ");
                     if (foundWaypointDirection[i] != Vector2.zero)
                     {
                         float distance = GetDistance(((Waypoint)foundWaypoints[i]).transform.position, targetPosition);
@@ -266,7 +262,7 @@ public class Ghost : MonoBehaviour
             TimeSpan time = DateTime.Now - scaredStartingTime;
             if (time.Seconds >= scaredDuration)
             {
-                manager.ResetMultiplier();
+                dataManager.ResetMultiplier();
                 mode = GhostMode.Normal;
             }
         }
