@@ -335,16 +335,19 @@ public class Ghost : ItemCollector
     // In innovative mode, ghosts can pick up fruits and apply some special effects
     public override void OnPickupItem(CollectableItem item)
     {
+        // effect does apply in Classic mode
         if (gameData.currentMode == GameData.Mode.ClassicMode)
         {
             return;
         }
+        // if the fruit has special effect then apply it
+        // if effect is a positive effect, apply to all the ghosts 
         if (item.effect != null)
         {
             if (item.effect.type == EffectType.IncreaseSpeed)
             {
                 gameData.AddEffectToGhosts(item.effect);
-            }
+            } // if effect is a negative effect, apply to oponents (Pacmans)
             else if (item.effect.type == EffectType.ReduceSpeed)
             {
                 gameData.AddEffectToPacman(item.effect);
