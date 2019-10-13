@@ -10,15 +10,15 @@ public class GameMenu : MonoBehaviour
     
     //private GameMode gameMode { get; set; }
     [SerializeField]
-    private Text classicModeText;
+    private Text classicModeText = null;
     [SerializeField]
-    private Text innovativeModeText;
+    private Text innovativeModeText = null;
     [SerializeField]
-    private Text battleModeText;
+    private Text battleModeText = null;
     [SerializeField]
-    private GameData gameData;
+    private GameData gameData = null;
     [SerializeField]
-    private GameObject pacman;
+    private GameObject pacman = null;
 
     // Start is called before the first frame update
     void Start()

@@ -16,7 +16,7 @@ public class Fruit : MonoBehaviour
     }
 
     [SerializeField]
-    private FruitType type;
+    private FruitType type = FruitType.Cherry;
 
     public int GetPoints()
     {

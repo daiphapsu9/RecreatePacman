@@ -7,21 +7,23 @@ public class Pacman : ItemCollector
 {
     public float speed;
     public Animator animator;
-    Vector2 dest = Vector2.zero;
     [SerializeField]
-    private AudioSource chompSound;
+    private AudioSource chompSound = null;
     [SerializeField]
-    private AudioSource eatFruitSound;
+    private AudioSource eatFruitSound = null;
     [SerializeField]
-    public AudioSource deathSound;
+    public AudioSource deathSound = null;
     [SerializeField]
-    private ParticleSystem collisionParticle;
+    public AudioSource eatGhostSound = null;
     [SerializeField]
-    private bool isPlayer1;
+    private ParticleSystem collisionParticle = null;
     [SerializeField]
-    private GameObject[] oponents;
+    private bool isPlayer1 = true;
+    [SerializeField]
+    private GameObject[] oponents = null;
     // Start is called before the first frame update
     GameData gameData;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -32,20 +34,32 @@ public class Pacman : ItemCollector
     override public void Update()
     {
         base.Update();
+        Move();
+    }
+
+    // move and set appropriate animation
+    void Move()
+    {
         Vector3 movement;
-        if (gameData.currentMode != GameData.Mode.BattleMode) {
+        // In Classic and Innovative mode, user can user both A,S,D,W and arrow key to move
+        if (gameData.currentMode != GameData.Mode.BattleMode)
+        {
+            // default input is A,S,W,D
             var inputMovement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            // if user us not using A,W,D,S then check arrows key for inputs
             if (inputMovement == Vector3.zero)
             {
                 movement = new Vector3(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"), 0.0f);
             }
             else movement = inputMovement;
-        } else
+        }
+        else
         {
-            if(isPlayer1) movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            // in Battle mode, Player 1 will use A,S,D,W to move
+            // player 2 will use arrow keys wo move
+            if (isPlayer1) movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
             else movement = new Vector3(Input.GetAxis("Horizontal2"), Input.GetAxis("Vertical2"), 0.0f);
         }
-        
         animator.SetFloat("DirX", movement.x);
         animator.SetFloat("DirY", movement.y);
         animator.SetFloat("PreX", movement.x);
@@ -57,13 +71,12 @@ public class Pacman : ItemCollector
             movement.x *= (float)System.Math.Sqrt(0.5);
             movement.y *= (float)System.Math.Sqrt(0.5);
         }
-        //Debug.Log("GetSpeed == " + GetSpeed());
+
         transform.position = transform.position + movement * GetSpeed() * Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.tag == "Waypoint")
         {
             Waypoint waypoint = collision.gameObject.GetComponent<Waypoint>();
@@ -111,6 +124,10 @@ public class Pacman : ItemCollector
             Ghost ghost = collision.gameObject.GetComponent<Ghost>();
             if (ghost.mode == Ghost.GhostMode.Frightened)
             {
+                if (!eatGhostSound.isPlaying)
+                {
+                    eatGhostSound.Play();
+                }
                 gameData.ConsumeGhost(isPlayer1);
                 ghost.BecomeScatter();
             } else if(ghost.mode != Ghost.GhostMode.Scatter)
@@ -137,7 +154,6 @@ public class Pacman : ItemCollector
                 }
             }
         }
-
     }
 
     public override void OnPickupItem(CollectableItem item)
@@ -155,7 +171,6 @@ public class Pacman : ItemCollector
                 appliedEffect.StartDurationCountDown();
             } else if (item.effect.type == EffectType.ReduceSpeed)
             {
-                //gameData.AddEffectToGhosts(item.effect);
                 foreach (GameObject oponent in oponents)
                 {
                     if (oponent.tag == "Pacman")

@@ -7,18 +7,18 @@ using UnityEngine.UI;
 public class GameOver : MonoBehaviour
 {
     [SerializeField]
-    private Text ScoreText;
+    private Text ScoreText = null;
     [SerializeField]
-    private GameObject WinText;
+    private GameObject WinText = null;
     [SerializeField]
-    private GameObject LoseText;
+    private GameObject LoseText = null;
     [SerializeField]
-    private GameObject Player1WinText;
+    private GameObject Player1WinText = null;
     [SerializeField]
-    private GameObject Player2WinText;
+    private GameObject Player2WinText = null;
     [SerializeField]
-    private GameObject DrawText;
-    public GameData gameData;
+    private GameObject DrawText = null;
+    public GameData gameData = null;
     void Start()
     {
         // get and store Game Data reference

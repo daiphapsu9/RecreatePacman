@@ -151,7 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff59b7af12163a40a197a29c3b661dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  appliedEffect: {fileID: 0}
   startingPoint: {fileID: 0}
   speed: 1.8
-  type: 3
+  moveMode: 0
+  mode: 0
   waypoints: []
+  animator: {fileID: 0}
+  oponents: []

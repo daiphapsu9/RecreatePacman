@@ -8,28 +8,28 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
-    private UIManager uiManager;
+    private UIManager uiManager = null;
 
     [SerializeField]
-    private GameObject[] spawningPoints;
+    private GameObject[] spawningPoints = null;
 
     private float SpwanItemFrequency = 7f;
     [SerializeField]
-    private GameObject cherry;
+    private GameObject cherry = null;
     [SerializeField]
-    private GameObject strawberry;
+    private GameObject strawberry = null;
     [SerializeField]
-    private GameObject orange;
+    private GameObject orange = null;
     [SerializeField]
-    private GameObject apple;
+    private GameObject apple = null;
     [SerializeField]
-    private GameObject pear;
+    private GameObject pear = null;
     [SerializeField]
-    private GameObject banana;
+    private GameObject banana = null;
     [SerializeField]
-    private AudioSource levelStartAudioSource;
+    private AudioSource levelStartAudioSource = null;
     [SerializeField]
-    private AudioSource backgroundAudioSource;
+    private AudioSource backgroundAudioSource = null;
 
     DateTime pauseStartingTime;
     private float pauseDuration;
@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
             if (timePassSincePause.Seconds > pauseDuration)
             {
                 Unpause();
+                // if the game is pause at the first start, play level start audio
                 if (firstStart)
                 {
                     StartReady();
@@ -97,6 +98,7 @@ public class LevelManager : MonoBehaviour
         {
             levelStartAudioSource.Play();
         }
+        // play background music after level start audio has finish playing
         Invoke("PlayBackgroundMusic", levelStartAudioSource.clip.length - pauseDuration - 1);
         uiManager.readyCanvas.SetActive(false);
         firstStart = false;
@@ -120,11 +122,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    // spawn random fruit every 7s at different rate 
     public void SpawnFruits()
     {
-        
         if (spawningPoints == null || spawningPoints.Length <= 0) { return; }
-
+        
+        // get random waypoint to spawn the fruit
         int randomZoneIndex = UnityEngine.Random.Range(0, spawningPoints.Length - 1);
         GameObject point = spawningPoints[randomZoneIndex];
 

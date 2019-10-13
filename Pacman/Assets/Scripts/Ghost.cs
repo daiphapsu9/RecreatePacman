@@ -5,14 +5,6 @@ using UnityEngine;
 
 public class Ghost : ItemCollector
 {
-    enum GhostType
-    {
-        Green, // move random at junction
-        Pink, // move clock-wise around
-        Blue, // run away
-        Red, // chase
-    }
-
     public enum GhostMode
     {
         Normal, // Ghost at Normal mode will move with their move mode
@@ -32,13 +24,10 @@ public class Ghost : ItemCollector
     // Ghost will have their base speed set by default which is 1.8f
     // their actual speed is adjusted based on their mode and applied effects (increased or reduced by 0.5 in 5s)
     [SerializeField]
-    private float speed;
-
+    private float speed = 1.8f;
     [SerializeField]
-    private GhostType type;
-    [SerializeField]
-    private MoveMode moveMode;
-    public GhostMode mode;
+    private MoveMode moveMode = MoveMode.Random;
+    public GhostMode mode = GhostMode.Normal;
     // predefined waypoints using for Pink ghost
     public GameObject[] waypoints;
     private Waypoint currentWaypoint, previousWaypoint, targetWaypoint;
@@ -54,7 +43,6 @@ public class Ghost : ItemCollector
 
     private Vector2 headingDir;
     private Vector2 scan;
-    private Vector2 lookingDir;
     GameData gameData;
     [SerializeField]
     private GameObject[] oponents;
@@ -315,8 +303,8 @@ public class Ghost : ItemCollector
             animator.SetBool("Scatter", false);
         }
 
-        animator.SetFloat("DirX", lookingDir.x);
-        animator.SetFloat("DirY", lookingDir.y);
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
     }
 
     // calculate actual speed of the ghost based on their mode and applied effect

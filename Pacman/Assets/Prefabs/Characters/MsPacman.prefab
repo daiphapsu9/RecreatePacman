@@ -116,13 +116,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40d0c17553fcf046abb994be7d08846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  appliedEffect: {fileID: 0}
   speed: 2
   animator: {fileID: 0}
-  chompSound: {fileID: 0}
-  eatFruitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  chompSound: {fileID: 4881457814064394090, guid: d23b2849acadc594b82d599a41ea784d,
+    type: 3}
+  eatFruitSound: {fileID: 5144143168845753639, guid: f548d8c93169b384db6a34ac5e6dd991,
+    type: 3}
+  deathSound: {fileID: 663222974312804368, guid: 844e3c708cb637341807ba925d66436b,
+    type: 3}
+  eatGhostSound: {fileID: 1035801887556051291, guid: 64f44ee579c0432419cbaf234d3eb4f9,
+    type: 3}
   collisionParticle: {fileID: 4068558635601621826, guid: 4f164d8e7c2191743b24c7acfd3d3a9a,
     type: 3}
+  isPlayer1: 1
+  oponents: []
 --- !u!50 &1008054300026293166
 Rigidbody2D:
   serializedVersion: 4
