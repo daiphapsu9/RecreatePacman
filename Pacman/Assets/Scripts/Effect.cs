@@ -25,6 +25,7 @@ public class Effect : MonoBehaviour
         this.value = value;
     }
 
+    //when item is consume, effect will be added to item collector and start counting down duration
     public void StartDurationCountDown()
     {
         effectStartingTime = DateTime.Now;

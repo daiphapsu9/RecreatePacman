@@ -858,7 +858,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -57
+      value: -52.4
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -969,7 +969,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: -1.4000015
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -1361,7 +1361,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.199997
+      value: 62.799995
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -2118,7 +2118,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.199997
+      value: 62.799995
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -2432,7 +2432,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.199997
+      value: 62.799995
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -2537,7 +2537,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.199997
+      value: 62.799995
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -2830,7 +2830,7 @@ PrefabInstance:
     - target: {fileID: 7512872436384503592, guid: aabaf165dd006ce41ac33f31f44ac03b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 74
+      value: 79.3
       objectReference: {fileID: 0}
     - target: {fileID: 7512872436384503592, guid: aabaf165dd006ce41ac33f31f44ac03b,
         type: 3}
@@ -3009,7 +3009,7 @@ PrefabInstance:
     - target: {fileID: 791219986157433626, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 54
+      value: 56.7
       objectReference: {fileID: 0}
     - target: {fileID: 791219986157433626, guid: 698935f6257f28d418fec84d5a22961d,
         type: 3}
@@ -3814,7 +3814,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.199997
+      value: 62.799995
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -4685,7 +4685,7 @@ PrefabInstance:
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 58.2
+      value: 62.8
       objectReference: {fileID: 0}
     - target: {fileID: 1842419920480030122, guid: aeccd4135cfbebe4aaaf4f5dd20e0732,
         type: 3}
@@ -5102,6 +5102,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 4533678082240875064, guid: 8d1f2a3bc5e35fd418de40faac0c7df5,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Player will play as Pacman and need to collect all the pellets placed
+        on map to win. Touching a ghost will kill Pacman. Consuming big pellets will
+        put Ghosts in vulnerable mode that Pacman can consume to gain extra points.
+
+
+        Consume fruits will gain more points. Moreover, consume some specific fruits
+        can gain positive effect to self while harm opponents. Ghost can also consume
+        fruits to gain these effects too ! '
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d1f2a3bc5e35fd418de40faac0c7df5, type: 3}
 --- !u!1001 &5453446932874152653
@@ -5234,7 +5246,7 @@ PrefabInstance:
     - target: {fileID: 5453446933180489160, guid: b1398b17dcefdca4994e6516e3380197,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 189
+      value: 201
       objectReference: {fileID: 0}
     - target: {fileID: 5453446933180489163, guid: b1398b17dcefdca4994e6516e3380197,
         type: 3}
@@ -5255,6 +5267,34 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.63240814
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453446934828293399, guid: b1398b17dcefdca4994e6516e3380197,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453446934828293398, guid: b1398b17dcefdca4994e6516e3380197,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Player will play as Pacman and need to collect all the pellets placed
+        on map to win. Touching a ghost will kill Pacman. Consuming big pellets will
+        put Ghosts in vulnerable mode that Pacman can consume to gain extra points.
+
+
+        Two players will play in this mode:
+
+        - Player 1 uses W, A, S, D to move
+
+        - Player 2 uses arrow keys to move
+
+
+        Player who dies first loses the game. If all pellets are consumed, player
+        with higher score wins.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5453446934092384850, guid: b1398b17dcefdca4994e6516e3380197,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -241
       objectReference: {fileID: 0}
     - target: {fileID: 5453446934092384877, guid: b1398b17dcefdca4994e6516e3380197,
         type: 3}
@@ -5400,5 +5440,20 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 5798730}
+    - target: {fileID: 7327121588603460251, guid: be45f9941cd3aae4cb4d94067362b6fc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7327121588603460245, guid: be45f9941cd3aae4cb4d94067362b6fc,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Player will play as Pacman and need to collect all the pellets placed
+        on map to win. Touching a ghost will kill Pacman. Consuming big pellets will
+        put Ghosts in vulnerable mode that Pacman can consume to gain extra points.
+
+
+        Use A, W, S, D keys or arrow keys to move.'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be45f9941cd3aae4cb4d94067362b6fc, type: 3}

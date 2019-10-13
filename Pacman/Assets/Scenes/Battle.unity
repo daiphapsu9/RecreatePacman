@@ -31654,6 +31654,11 @@ PrefabInstance:
       propertyPath: oponents.Array.data[0]
       value: 
       objectReference: {fileID: 28178311}
+    - target: {fileID: 1008054300026293164, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: eatGhostSound
+      value: 
+      objectReference: {fileID: 1177216936}
     - target: {fileID: 1008054300026293166, guid: df9e60ae9df1a0241a6c7c422232a833,
         type: 3}
       propertyPath: m_BodyType

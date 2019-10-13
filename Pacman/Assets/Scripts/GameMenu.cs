@@ -117,10 +117,8 @@ public class GameMenu : MonoBehaviour
         // User uses Enter (Return) key to select playing mode and load the relevant scene
         else if (Input.GetKeyUp(KeyCode.Return))
         {
-            Debug.Log("RETURN !!!");
             if (isModeChosen)
             {
-                Debug.Log("MODE CHOSE");
                 switch (gameData.currentMode)
                 {
                     case GameData.Mode.ClassicMode:
@@ -137,7 +135,6 @@ public class GameMenu : MonoBehaviour
                 gameData.ResetData();
             } else
             {
-                Debug.Log("MODE CHOSE!!!");
                 switch (gameData.currentMode)
                 {
                     case GameData.Mode.ClassicMode:
@@ -150,7 +147,6 @@ public class GameMenu : MonoBehaviour
                         battleCanvas.SetActive(true);
                         break;
                     default:
-                        Debug.Log("QUIT!!!");
                         Application.Quit();
                         break;
                 }
