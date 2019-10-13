@@ -4,13 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Each playing scene has a level manager that keeps track of all relevant objects and sound 
 public class LevelManager : MonoBehaviour
 {
-    private int[] multiplier = { 1, 2, 4, 8 };
-    private int currentMultiplierPos = 0;
-    private int ghostScore = 200;
-    private int smallBallScore = 10;
-    private int bigBallScore = 10;
     [SerializeField]
     private UIManager uiManager;
 
@@ -44,14 +40,13 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // show Ready canvas for playing scene that will pause the game in first 2 seconds
         gameData = GameObject.Find("GameData").GetComponent<GameData>();
         gameData.GetRequiredReference();
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
-            //Debug.Log("Scene 1 mode == " + gameData.currentMode);
             Pause(2f);
-            //ShowReadyCanvas();
+            // spawn fruits each 7 seconds, position at a random waypoint
             StartCoroutine(SpawnTimer());
         }
     }
@@ -61,13 +56,17 @@ public class LevelManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "GameMenu" && SceneManager.GetActiveScene().name != "GameOver")
         {
-            uiManager.UpdateScore(gameData.score,gameData.currentMode, gameData.player2Score);
+            // Update score label
+            uiManager.UpdateScore(gameData.score, gameData.currentMode, gameData.player2Score);
+            // if game is paused, unpaused game after given duration
             CheckPauseGame();
         }
+        // Check if end game condition is met to load Game Over scene
         if (gameData.isOver)
         {
             foreach (Pacman pacman in gameData.allPacmans)
             {
+                // Load game over scene only after pacman dead sound is playing (if pacman is dead)
                 if (pacman.deathSound.isPlaying == false)
                 {
                     SceneManager.LoadScene("GameOver");

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Base class that enable Pacman and Ghost to pick up item and store it effect
+// it also calculate time to remove effect based on effect duration
 public abstract class ItemCollector : MonoBehaviour
 {
     public Effect appliedEffect = null; 

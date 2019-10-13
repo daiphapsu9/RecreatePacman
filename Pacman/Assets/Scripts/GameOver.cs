@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Class that support Game Over scene, display game result and score
 public class GameOver : MonoBehaviour
 {
     [SerializeField]
@@ -18,10 +19,11 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     private GameObject DrawText;
     public GameData gameData;
-    // Start is called before the first frame update
     void Start()
     {
+        // get and store Game Data reference
         gameData = GameObject.Find("GameData").GetComponent<GameData>();
+        // display score
         if (gameData != null)
         {
             ScoreText.text = gameData.score.ToString();
@@ -38,6 +40,7 @@ public class GameOver : MonoBehaviour
                 Player1WinText.SetActive(true);
                 break;
             case GameData.GameResult.Player2Win:
+                // in battle mode, display player 2 score if they win
                 Player2WinText.SetActive(true);
                 ScoreText.text = gameData.player2Score.ToString();
                 break;
