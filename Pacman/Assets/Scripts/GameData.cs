@@ -18,7 +18,8 @@ public class GameData : MonoBehaviour
     {
         ClassicMode,
         InnovativeMode,
-        BattleMode
+        BattleMode,
+        Quit
     }
 
     public enum GameResult
@@ -93,13 +94,22 @@ public class GameData : MonoBehaviour
             score += smallBallScore;
         } else player2Score += smallBallScore;
 
+        // if all balls have been consumed, the level ends
         ballCount--;
         if (ballCount == 0)
         {
             isOver = true;
-            if (score > player2Score) { gameResult = GameResult.Player1Win; }
-            else if (score < player2Score) { gameResult = GameResult.Player2Win; }
-            else gameResult = GameResult.Draw;
+            // if not in battle mode, the player win
+            if (currentMode != GameData.Mode.BattleMode)
+            {
+                gameResult = GameResult.Win;
+            } else
+            {
+                // in battle mode, player with higher score wins, else they draw
+                if (score > player2Score) { gameResult = GameResult.Player1Win; }
+                else if (score < player2Score) { gameResult = GameResult.Player2Win; }
+                else gameResult = GameResult.Draw;
+            }
         }
     }
 
@@ -111,12 +121,21 @@ public class GameData : MonoBehaviour
         }
         else player2Score += bigBallScore;
         ballCount--;
+        // if all balls have been consumed, the level ends
         if (ballCount == 0)
         {
             isOver = true;
-            if (score > player2Score) { gameResult = GameResult.Player1Win; }
-            else if (score < player2Score) { gameResult = GameResult.Player2Win; }
-            else gameResult = GameResult.Draw;
+            // if not in battle mode, the player win
+            if (currentMode != GameData.Mode.BattleMode)
+            {
+                gameResult = GameResult.Win;
+            }
+            else // in battle mode, player with higher score wins, else they draw
+            {
+                if (score > player2Score) { gameResult = GameResult.Player1Win; }
+                else if (score < player2Score) { gameResult = GameResult.Player2Win; }
+                else gameResult = GameResult.Draw;
+            }
         }
     }
 

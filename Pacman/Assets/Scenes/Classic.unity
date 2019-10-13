@@ -43238,6 +43238,11 @@ PrefabInstance:
       propertyPath: isPlayer1
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1008054300026293164, guid: df9e60ae9df1a0241a6c7c422232a833,
+        type: 3}
+      propertyPath: eatGhostSound
+      value: 
+      objectReference: {fileID: 1035801887089525715}
     - target: {fileID: 1008054300026293166, guid: df9e60ae9df1a0241a6c7c422232a833,
         type: 3}
       propertyPath: m_BodyType
@@ -43346,6 +43351,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f44ee579c0432419cbaf234d3eb4f9, type: 3}
+--- !u!82 &1035801887089525715 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1035801887556051291, guid: 64f44ee579c0432419cbaf234d3eb4f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1035801887089525714}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1571090417835973327
 PrefabInstance:
   m_ObjectHideFlags: 0

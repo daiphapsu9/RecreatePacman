@@ -16,9 +16,19 @@ public class GameMenu : MonoBehaviour
     [SerializeField]
     private Text battleModeText = null;
     [SerializeField]
+    private Text quitText = null;
+    [SerializeField]
     private GameData gameData = null;
     [SerializeField]
+    private GameObject classicCanvas = null;
+    [SerializeField]
+    private GameObject innovativeCanvas = null;
+    [SerializeField]
+    private GameObject battleCanvas = null;
+    [SerializeField]
     private GameObject pacman = null;
+
+    private bool isModeChosen = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +82,11 @@ public class GameMenu : MonoBehaviour
                 gameData.currentMode = GameData.Mode.BattleMode;
                 pacman.transform.position = new Vector2(pacman.transform.position.x, battleModeText.transform.position.y + 5);
             }
-            else
+            else if(gameData.currentMode == GameData.Mode.BattleMode)
+            {
+                gameData.currentMode = GameData.Mode.Quit;
+                pacman.transform.position = new Vector2(pacman.transform.position.x, quitText.transform.position.y + 5);
+            } else
             {
                 gameData.currentMode = GameData.Mode.ClassicMode;
                 pacman.transform.position = new Vector2(pacman.transform.position.x, classicModeText.transform.position.y + 5);
@@ -82,37 +96,67 @@ public class GameMenu : MonoBehaviour
         {
             if (gameData.currentMode == GameData.Mode.ClassicMode)
             {
+                gameData.currentMode = GameData.Mode.Quit;
+                pacman.transform.position = new Vector2(pacman.transform.position.x, quitText.transform.position.y + 5);
+            } else if (gameData.currentMode == GameData.Mode.Quit)
+            {
                 gameData.currentMode = GameData.Mode.BattleMode;
                 pacman.transform.position = new Vector2(pacman.transform.position.x, battleModeText.transform.position.y + 5);
             }
-            else if (gameData.currentMode == GameData.Mode.InnovativeMode)
-            {
-                gameData.currentMode = GameData.Mode.ClassicMode;
-                pacman.transform.position = new Vector2(pacman.transform.position.x, classicModeText.transform.position.y + 5);
-            }
-            else
+            else if (gameData.currentMode == GameData.Mode.BattleMode)
             {
                 gameData.currentMode = GameData.Mode.InnovativeMode;
                 pacman.transform.position = new Vector2(pacman.transform.position.x, innovativeModeText.transform.position.y + 5);
+            }
+            else
+            {
+                gameData.currentMode = GameData.Mode.ClassicMode;
+                pacman.transform.position = new Vector2(pacman.transform.position.x, classicModeText.transform.position.y + 5);
             }
         }
         // User uses Enter (Return) key to select playing mode and load the relevant scene
         else if (Input.GetKeyUp(KeyCode.Return))
         {
-            switch (gameData.currentMode)
+            Debug.Log("RETURN !!!");
+            if (isModeChosen)
             {
-                case GameData.Mode.ClassicMode:
-                    SceneManager.LoadSceneAsync("Classic");
-                    break;
-                case GameData.Mode.InnovativeMode:
-                    SceneManager.LoadSceneAsync("Innovative");
-                    break;
-                case GameData.Mode.BattleMode:
-                    SceneManager.LoadSceneAsync("Battle");
-                    break;
+                Debug.Log("MODE CHOSE");
+                switch (gameData.currentMode)
+                {
+                    case GameData.Mode.ClassicMode:
+                        SceneManager.LoadSceneAsync("Classic");
+                        break;
+                    case GameData.Mode.InnovativeMode:
+                        SceneManager.LoadSceneAsync("Innovative");
+                        break;
+                    case GameData.Mode.BattleMode:
+                        SceneManager.LoadSceneAsync("Battle");
+                        break;
+                }
+                gameData.isOver = false;
+                gameData.ResetData();
+            } else
+            {
+                Debug.Log("MODE CHOSE!!!");
+                switch (gameData.currentMode)
+                {
+                    case GameData.Mode.ClassicMode:
+                        classicCanvas.SetActive(true);
+                        break;
+                    case GameData.Mode.InnovativeMode:
+                        innovativeCanvas.SetActive(true);
+                        break;
+                    case GameData.Mode.BattleMode:
+                        battleCanvas.SetActive(true);
+                        break;
+                    default:
+                        Debug.Log("QUIT!!!");
+                        Application.Quit();
+                        break;
+                }
+                isModeChosen = true;
             }
-            gameData.isOver = false;
-            gameData.ResetData();
+            
         }
     }
 }
